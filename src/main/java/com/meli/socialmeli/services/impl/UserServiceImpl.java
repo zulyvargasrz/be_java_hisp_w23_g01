@@ -48,6 +48,10 @@ public class UserServiceImpl implements IUserService {
             throw new BadRequest("User not found");
         }
 
+        if(followedUser.getPosts().isEmpty() || userId == userIdToFollow){
+            throw new BadRequest("Invalid User to follow");
+        }
+
         followerUser.addFollowed(followedUser);
         followedUser.addFollower(followerUser);
 
