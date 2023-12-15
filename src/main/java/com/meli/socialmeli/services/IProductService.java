@@ -1,4 +1,4 @@
-package com.meli.socialmeli.service;
+package com.meli.socialmeli.services;
 
 public interface IProductService {
 }

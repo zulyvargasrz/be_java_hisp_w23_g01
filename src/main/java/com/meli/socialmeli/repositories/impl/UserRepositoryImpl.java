@@ -1,6 +1,6 @@
-package com.meli.socialmeli.repository.impl;
+package com.meli.socialmeli.repositories.impl;
 
-import com.meli.socialmeli.repository.IUserRepository;
+import com.meli.socialmeli.repositories.IUserRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

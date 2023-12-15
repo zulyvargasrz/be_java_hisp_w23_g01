@@ -1,4 +1,4 @@
-package com.meli.socialmeli.entity;
+package com.meli.socialmeli.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

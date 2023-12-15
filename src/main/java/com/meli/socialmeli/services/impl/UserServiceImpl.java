@@ -1,6 +1,6 @@
-package com.meli.socialmeli.service.impl;
+package com.meli.socialmeli.services.impl;
 
-import com.meli.socialmeli.service.IUserService;
+import com.meli.socialmeli.services.IUserService;
 import org.springframework.stereotype.Service;
 
 @Service
