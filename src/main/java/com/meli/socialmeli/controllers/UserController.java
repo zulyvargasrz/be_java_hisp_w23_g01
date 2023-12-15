@@ -1,6 +1,6 @@
 package com.meli.socialmeli.controllers;
 
-import com.meli.socialmeli.dto.UserFollowersDTO;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.services.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
