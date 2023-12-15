@@ -3,6 +3,7 @@ package com.meli.socialmeli.services.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.socialmeli.dtos.MessageDto;
 import com.meli.socialmeli.dtos.UserDto;
+import com.meli.socialmeli.dtos.response.UserResponseDto;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequest;
 import com.meli.socialmeli.repositories.IUserRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -20,12 +22,28 @@ public class UserServiceImpl implements IUserService {
     IUserRepository userRepository;
 
     @Override
-    public List<UserDto> findAll() {
+    public List<UserResponseDto> findAll() {
         List<User> userList = userRepository.findAll();
-        List<UserDto> userDtoList = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        userList.forEach(u ->  userDtoList.add(mapper.convertValue(u, UserDto.class)));
-        return userDtoList;
+        List<UserResponseDto> userResponseDtoList = new ArrayList<>();
+        userList.forEach(u ->  {
+            UserResponseDto userResponseDto = new UserResponseDto();
+
+            userResponseDto.setUser_id(u.getUser_id());
+            userResponseDto.setUser_name(u.getUser_name());
+
+            List<String> followers = u.getFollowers().stream()
+                    .map(User::getUser_name)
+                    .toList();
+            userResponseDto.setFollowers(followers);
+
+            List<String> followed = u.getFollowed().stream()
+                    .map(User::getUser_name)
+                    .toList();
+            userResponseDto.setFollowed(followed);
+
+            userResponseDtoList.add(userResponseDto);
+        });
+        return userResponseDtoList;
     }
 
     @Override
