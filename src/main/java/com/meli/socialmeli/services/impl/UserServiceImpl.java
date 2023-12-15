@@ -1,6 +1,8 @@
 package com.meli.socialmeli.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.socialmeli.dtos.MessageDto;
+import com.meli.socialmeli.dtos.UserDto;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequest;
 import com.meli.socialmeli.repositories.IUserRepository;
@@ -8,11 +10,23 @@ import com.meli.socialmeli.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
     IUserRepository userRepository;
+
+    @Override
+    public List<UserDto> findAll() {
+        List<User> userList = userRepository.findAll();
+        List<UserDto> userDtoList = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        userList.forEach(u ->  userDtoList.add(mapper.convertValue(u, UserDto.class)));
+        return userDtoList;
+    }
 
     @Override
     public MessageDto followSeller(int userId, int userIdToFollow) {
