@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserFollowersDTO findFollowersById(int id) {
-        Optional<User> userFound = userRepository.finById(id);
+        Optional<User> userFound = Optional.ofNullable(userRepository.finById(id));
         if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
 
         List<UserInfoDTO> followers = userFound.get().getFollowers()
