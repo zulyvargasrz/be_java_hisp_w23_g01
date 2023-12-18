@@ -1,8 +1,14 @@
 package com.meli.socialmeli.services.impl;
 
-import com.meli.socialmeli.dtos.response.*;
+
 import com.meli.socialmeli.dtos.MessageDto;
 
+
+import com.meli.socialmeli.dtos.response.FollowersCountDto;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
+import com.meli.socialmeli.dtos.response.UserInfoDTO;
+import com.meli.socialmeli.dtos.response.UserResponseDto;
+import com.meli.socialmeli.dtos.response.UserUnfollowDto;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 
