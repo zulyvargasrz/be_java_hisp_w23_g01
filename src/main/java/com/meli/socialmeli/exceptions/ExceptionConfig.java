@@ -1,6 +1,7 @@
 package com.meli.socialmeli.exceptions;
 
 import com.meli.socialmeli.dtos.response.ExceptionDTO;
+import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,11 @@ public class ExceptionConfig {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<?> handlerMethodArgument(MethodArgumentTypeMismatchException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<?> handleBadRequestException(BadRequestException e){
         return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
