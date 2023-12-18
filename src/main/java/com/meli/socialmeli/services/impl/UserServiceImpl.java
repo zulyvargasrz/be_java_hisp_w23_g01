@@ -1,33 +1,29 @@
 package com.meli.socialmeli.services.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.dtos.UserDto;
 import com.meli.socialmeli.dtos.response.UserResponseDto;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequest;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.dtos.response.UserInfoDTO;
-import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
-import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    IUserRepository userRepository;
+    private final IUserRepository userRepository;
+
+    public UserServiceImpl(IUserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<UserResponseDto> findAll() {
@@ -74,6 +70,10 @@ public class UserServiceImpl implements IUserService {
             throw new BadRequest("User not found");
         }
 
+        if(followedUser.getFollowers().contains(followerUser)){
+            throw new BadRequest("User already followed");
+        }
+
         if(followedUser.getPosts().isEmpty() || userId == userIdToFollow){
             throw new BadRequest("Invalid User to follow");
         }
@@ -83,13 +83,6 @@ public class UserServiceImpl implements IUserService {
 
         return new MessageDto("Followed added");
     }
-}
-
-    private final IUserRepository userRepository;
-
-    public UserServiceImpl(IUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserFollowersDTO findFollowersById(int id) {
@@ -97,10 +90,11 @@ public class UserServiceImpl implements IUserService {
         if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
 
         List<UserInfoDTO> followers = userFound.get().getFollowers()
-                                                     .stream()
-                                                     .map( f -> new UserInfoDTO(f.getUser_id(), f.getUser_name() ) )
-                                                     .toList();
+                .stream()
+                .map( f -> new UserInfoDTO(f.getUser_id(), f.getUser_name() ) )
+                .toList();
 
         return new UserFollowersDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followers);
     }
+
 }
