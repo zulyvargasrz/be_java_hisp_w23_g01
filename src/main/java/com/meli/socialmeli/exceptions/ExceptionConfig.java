@@ -1,20 +1,29 @@
 package com.meli.socialmeli.exceptions;
 
-import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.exceptions.custom.BadRequest;
+import com.meli.socialmeli.dtos.response.ExceptionDTO;
+import com.meli.socialmeli.exceptions.custom.DataSourceException;
+import com.meli.socialmeli.exceptions.custom.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.util.Arrays;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 public class ExceptionConfig {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handlerNotFoundExcepcion(NotFoundException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.NOT_FOUND);
+    }
 
-    @ExceptionHandler(BadRequest.class)
-    public ResponseEntity<?> badRequestException(Exception e){
-        System.err.println(Arrays.toString(e.getStackTrace()));
-        return ResponseEntity.badRequest().body(new MessageDto(e.getMessage()));
+    @ExceptionHandler(DataSourceException.class)
+    public ResponseEntity<?> handlerDataSoureException(DataSourceException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<?> handlerMethodArgument(MethodArgumentTypeMismatchException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }

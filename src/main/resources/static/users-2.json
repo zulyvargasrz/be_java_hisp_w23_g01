@@ -1,0 +1,386 @@
+[
+  {
+    "user_id": 100,
+    "user_name": "Stevenson",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Acosta"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Blackwell"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Sweeney"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Holloway"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Doyle"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Hebert"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2023-09-23",
+        "category": 400,
+        "price": 731714,
+        "has_promo": true,
+        "discount": 0.2,
+        "product": {
+          "product_id": 100,
+          "product_name": "Portatil",
+          "type": "Especial",
+          "brand": "Racer",
+          "notes": "Garantia extendida"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2021-05-02",
+        "category": 300,
+        "price": 275728.9,
+        "has_promo": true,
+        "discount": 0.25,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Portatil",
+          "type": "Generico",
+          "brand": "Especial",
+          "notes": "Especial"
+        }
+      }
+    ]
+  },
+  {
+    "user_id": 1100,
+    "user_name": "Figueroa",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Booker"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Workman"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Williamson"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Lowe"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Gillespie"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Burris"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2023-11-30",
+        "category": 200,
+        "price": 491073.3,
+        "has_promo": true,
+        "discount": 0.25,
+        "product": {
+          "product_id": 100,
+          "product_name": "Silla Ergonomica",
+          "type": "Gamer",
+          "brand": "Generico",
+          "notes": "Especial"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2022-07-18",
+        "category": 100,
+        "price": 1143942.5,
+        "has_promo": true,
+        "discount": 0.2,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Mouse",
+          "type": "Gamer",
+          "brand": "Racer",
+          "notes": "Especial"
+        }
+      }
+    ]
+  },
+  {
+    "user_id": 2100,
+    "user_name": "Bowen",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Chavez"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Sullivan"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Mcconnell"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Mcmillan"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Stark"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Hewitt"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2022-12-24",
+        "category": 400,
+        "price": 1441265.9,
+        "has_promo": true,
+        "discount": 0.1,
+        "product": {
+          "product_id": 100,
+          "product_name": "Teclado Mecanico",
+          "type": "Especial",
+          "brand": "Especial",
+          "notes": "Garantia extendida"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2020-12-26",
+        "category": 100,
+        "price": 621085.7,
+        "has_promo": false,
+        "discount": 0.25,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Mouse",
+          "type": "Especial",
+          "brand": "Racer",
+          "notes": "Garantia extendida"
+        }
+      }
+    ]
+  },
+  {
+    "user_id": 3100,
+    "user_name": "Gibson",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Oneal"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Michael"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Dudley"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Castro"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Ayala"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Potts"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2020-07-11",
+        "category": 200,
+        "price": 645091.6,
+        "has_promo": false,
+        "discount": 0.1,
+        "product": {
+          "product_id": 100,
+          "product_name": "Silla Ergonomica",
+          "type": "Especial",
+          "brand": "Generico",
+          "notes": "Ilimitada"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2023-10-22",
+        "category": 200,
+        "price": 817904.5,
+        "has_promo": true,
+        "discount": 0.1,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Mouse",
+          "type": "Gamer",
+          "brand": "Racer",
+          "notes": "Garantia extendida"
+        }
+      }
+    ]
+  },
+  {
+    "user_id": 4100,
+    "user_name": "Shelton",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Boyd"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Parrish"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Miranda"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Bryan"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Butler"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Cantu"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2021-03-28",
+        "category": 200,
+        "price": 625124,
+        "has_promo": false,
+        "discount": 0.1,
+        "product": {
+          "product_id": 100,
+          "product_name": "Teclado Mecanico",
+          "type": "Generico",
+          "brand": "Especial",
+          "notes": "Ilimitada"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2023-10-27",
+        "category": 200,
+        "price": 1487921.6,
+        "has_promo": false,
+        "discount": 0.1,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Portatil",
+          "type": "Gamer",
+          "brand": "Racer",
+          "notes": "Especial"
+        }
+      }
+    ]
+  },
+  {
+    "user_id": 5100,
+    "user_name": "Weeks",
+    "followers": [
+      {
+        "user_id": 200,
+        "user_name": "Mckay"
+      },
+      {
+        "user_id": 201,
+        "user_name": "Holman"
+      },
+      {
+        "user_id": 202,
+        "user_name": "Herrera"
+      }
+    ],
+    "followed": [
+      {
+        "user_id": 150,
+        "user_name": "Sanders"
+      },
+      {
+        "user_id": 151,
+        "user_name": "Sawyer"
+      },
+      {
+        "user_id": 152,
+        "user_name": "Trevino"
+      }
+    ],
+    "posts": [
+      {
+        "post_id": 100,
+        "date": "2021-03-23",
+        "category": 200,
+        "price": 798584.2,
+        "has_promo": false,
+        "discount": 0.1,
+        "product": {
+          "product_id": 100,
+          "product_name": "Mouse",
+          "type": "Gamer",
+          "brand": "Racer",
+          "notes": "Ilimitada"
+        }
+      },
+      {
+        "post_id": 1100,
+        "date": "2023-07-03",
+        "category": 100,
+        "price": 698596.8,
+        "has_promo": true,
+        "discount": 0.25,
+        "product": {
+          "product_id": 1100,
+          "product_name": "Portatil",
+          "type": "Generico",
+          "brand": "Racer",
+          "notes": "Ilimitada"
+        }
+      }
+    ]
+  }
+]

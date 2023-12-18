@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    IUserService userService;
+    private final IUserService userService;
+
+    public UserController(IUserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public ResponseEntity<?> getAllUsers(){
@@ -20,6 +23,11 @@ public class UserController {
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> followSeller(@PathVariable int userId, @PathVariable int userIdToFollow){
         return ResponseEntity.ok(userService.followSeller(userId, userIdToFollow));
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId){
+        return ResponseEntity.ok(userService.findFollowersById(userId));
     }
 
 }
