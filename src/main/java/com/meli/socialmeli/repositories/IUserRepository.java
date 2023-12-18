@@ -7,5 +7,5 @@ import java.util.List;
 public interface IUserRepository {
     List<User> findAll();
     User finById(int id);
-    List<User> getUserFollowers(User user);
+    List<User> getUserFollowed(User user);
 }
