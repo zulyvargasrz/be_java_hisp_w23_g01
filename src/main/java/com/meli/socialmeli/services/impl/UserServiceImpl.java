@@ -3,7 +3,7 @@ package com.meli.socialmeli.services.impl;
 import com.meli.socialmeli.dtos.MessageDto;
 import com.meli.socialmeli.dtos.response.UserResponseDto;
 import com.meli.socialmeli.entities.User;
-import com.meli.socialmeli.exceptions.custom.BadRequest;
+import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.dtos.response.UserInfoDTO;
@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followerUser == null){
-            throw new BadRequest("User not found");
+            throw new BadRequestException("User not found");
         }
 
         User followedUser = userRepository.findAll()
@@ -67,15 +67,15 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followedUser == null){
-            throw new BadRequest("User not found");
+            throw new BadRequestException("User not found");
         }
 
         if(followedUser.getFollowers().contains(followerUser)){
-            throw new BadRequest("User already followed");
+            throw new BadRequestException("User already followed");
         }
 
         if(followedUser.getPosts().isEmpty() || userId == userIdToFollow){
-            throw new BadRequest("Invalid User to follow");
+            throw new BadRequestException("Invalid User to follow");
         }
 
         followerUser.addFollowed(followedUser);
