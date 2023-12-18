@@ -12,6 +12,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class UserRepositoryImpl implements IUserRepository {
     private List<User> users;
     public UserRepositoryImpl() throws IOException {
         loadDataBase();
+        System.out.println(users);
     }
 
     @Override
@@ -32,6 +34,11 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public User finById(int id) {
         return users.stream().filter( u -> u.getUser_id() == id ).findFirst().orElse(null);
+    }
+
+    @Override
+    public List<User> getUserFollowers(User user) {
+        return user.getFollowers();
     }
 
     private void loadDataBase() {
