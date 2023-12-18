@@ -37,8 +37,8 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public List<User> getUserFollowers(User user) {
-        return user.getFollowers();
+    public List<User> getUserFollowed(User user) {
+        return user.getFollowed();
     }
 
     private void loadDataBase() {
