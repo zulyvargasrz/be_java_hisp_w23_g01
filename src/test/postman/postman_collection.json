@@ -1,10 +1,150 @@
 {
 	"info": {
-		"_postman_id": "a9ab2ab0-0d9e-41b6-8c79-49a88cc33a5c",
+		"_postman_id": "cb9e5213-dc6a-4ce9-baa9-6dfad3d877cc",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "US 001",
+			"item": [
+				{
+					"name": "Add follower",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseURL}}/users/100/follow/1100"
+					},
+					"response": []
+				},
+				{
+					"name": "Add existing follower",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseURL}}/users/100/follow/1100"
+					},
+					"response": []
+				},
+				{
+					"name": "follow itself",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseURL}}/users/100/follow/1100"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US 002",
+			"item": [
+				{
+					"name": "Followers count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/users/1100/followers/count"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US 003 with 008",
+			"item": [
+				{
+					"name": "Get followers - Name desc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/1100/followers/list?order=name_asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"1100",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get followers - Name asc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US 004 with 008",
+			"item": [
+				{
+					"name": "Get followed - name asc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get followed - desc",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US 005",
+			"item": []
+		},
+		{
+			"name": "US 006 with 009",
+			"item": [
+				{
+					"name": "Posts last to weeks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Posts last to weeks - without followed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US 007",
+			"item": []
+		},
 		{
 			"name": "Load test data",
 			"event": [
@@ -55,15 +195,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		},
@@ -72,81 +204,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add follower",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users/100/follow/1100",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users",
-						"100",
-						"follow",
-						"1100"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get followers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users/1100/followers/list?order=name_asc",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users",
-						"1100",
-						"followers",
-						"list"
-					],
-					"query": [
-						{
-							"key": "order",
-							"value": "name_asc"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Followers count",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users/1100/followers/count",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users",
-						"1100",
-						"followers",
-						"count"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		}
