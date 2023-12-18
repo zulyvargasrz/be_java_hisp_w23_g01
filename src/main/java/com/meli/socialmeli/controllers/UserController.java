@@ -1,19 +1,21 @@
 package com.meli.socialmeli.controllers;
 
 import com.meli.socialmeli.services.IUserService;
-import com.meli.socialmeli.services.impl.UserServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    IUserService userService;
+    private final IUserService userService;
 
-    public UserController(UserServiceImpl userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
@@ -21,4 +23,20 @@ public class UserController {
     public ResponseEntity<?> unfollowUser(int userId, int userIdToUnfollow){
         return ResponseEntity.ok(userService.unfollowUser(userId, userIdToUnfollow));
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllUsers(){
+        return ResponseEntity.ok(userService.findAll());
+    }
+
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<?> followSeller(@PathVariable int userId, @PathVariable int userIdToFollow){
+        return ResponseEntity.ok(userService.followSeller(userId, userIdToFollow));
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId){
+        return ResponseEntity.ok(userService.findFollowersById(userId));
+    }
+
 }
