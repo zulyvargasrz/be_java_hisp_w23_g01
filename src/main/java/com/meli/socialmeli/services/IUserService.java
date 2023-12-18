@@ -12,8 +12,11 @@ import com.meli.socialmeli.dtos.UserUnfollowDto;
 
 public interface IUserService {
 
+    UserFollowersDTO findFollowersById(int id, String order);
     List<UserResponseDto> findAll();
     MessageDto followSeller(int userId, int userIdToFollow);
+    FollowersCountDto getFollowersCount(int userId);
+
     UserFollowersDTO findFollowersById(int id);
     UserUnfollowDto unfollowUser(int userId, int userIdToUnfollow);
 
