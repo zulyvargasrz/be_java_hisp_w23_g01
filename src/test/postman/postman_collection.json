@@ -122,7 +122,7 @@
 			"name": "US 006 with 009",
 			"item": [
 				{
-					"name": "Posts last to weeks",
+					"name": "Posts last to weeks- date asc",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -132,6 +132,15 @@
 				},
 				{
 					"name": "Posts last to weeks - without followed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "Posts last two weeks - date desc",
 					"request": {
 						"method": "GET",
 						"header": [],
