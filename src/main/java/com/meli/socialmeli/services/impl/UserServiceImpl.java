@@ -1,6 +1,7 @@
 package com.meli.socialmeli.services.impl;
 
 import com.meli.socialmeli.dtos.MessageDto;
+import com.meli.socialmeli.dtos.response.FollowersCountDto;
 import com.meli.socialmeli.dtos.response.UserResponseDto;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
@@ -99,4 +100,16 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public FollowersCountDto getFollowersCount(int userId) {
+        User user = userRepository.finById(userId);
+        if(user == null){
+            throw new NotFoundException("Invalid user");
+        }
+        FollowersCountDto followersCountDto = new FollowersCountDto();
+        followersCountDto.setUser_id(user.getUser_id());
+        followersCountDto.setUser_name(user.getUser_name());
+        followersCountDto.setFollowers_count(user.getFollowers().size());
+        return followersCountDto;
+    }
 }
