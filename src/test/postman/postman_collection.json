@@ -1,22 +1,82 @@
 {
 	"info": {
-		"_postman_id": "623bf699-bec1-4307-a8aa-0604b23fe730",
+		"_postman_id": "a9ab2ab0-0d9e-41b6-8c79-49a88cc33a5c",
 		"name": "Sprint 1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Load test data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const followersData = [",
+							"    {",
+							"        follower: 100,",
+							"        followed: 1100",
+							"    },",
+							"    {",
+							"        follower: 100,",
+							"        followed: 2100",
+							"    },",
+							"    {",
+							"        follower: 100,",
+							"        followed: 3100",
+							"    },",
+							"    {",
+							"        follower: 100,",
+							"        followed: 4100",
+							"    }",
+							"]",
+							"",
+							"for(let i = 0; i < followersData.length; i++){",
+							"    const data = followersData[i];",
+							"    const requestInfo = {",
+							"        url: `${pm.variables.get(\"baseURL\")}/users/${data.follower}/follow/${data.followed}`,",
+							"        method: \"POST\"",
+							"    }",
+							"",
+							"    pm.sendRequest(",
+							"        requestInfo, (error, response) => {",
+							"            if(error){",
+							"                console.log(error);",
+							"            }else{",
+							"                console.log(response);",
+							"            }",
+							"    })",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Find all users",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users",
-					"protocol": "http",
+					"raw": "{{baseURL}}/users",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "8080",
 					"path": [
 						"users"
 					]
@@ -30,15 +90,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/5100/follow/1100",
-					"protocol": "http",
+					"raw": "{{baseURL}}/users/100/follow/1100",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
-						"5100",
+						"100",
 						"follow",
 						"1100"
 					]
@@ -52,12 +110,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1100/followers/list?order=name_asc",
-					"protocol": "http",
+					"raw": "{{baseURL}}/users/1100/followers/list?order=name_asc",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"1100",
@@ -80,12 +136,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1100/followers/count",
-					"protocol": "http",
+					"raw": "{{baseURL}}/users/1100/followers/count",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "8080",
 					"path": [
 						"users",
 						"1100",
@@ -95,6 +149,33 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:8080"
 		}
 	]
 }
