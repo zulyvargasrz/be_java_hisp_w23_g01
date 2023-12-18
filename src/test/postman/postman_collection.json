@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "1dd5d2c4-5f84-4610-8d60-d6c72791f057",
+		"_postman_id": "623bf699-bec1-4307-a8aa-0604b23fe730",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -10,7 +10,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "http://localhost:8080/users"
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
 			},
 			"response": []
 		},
@@ -19,7 +29,20 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "http://localhost:8080/users/100/follow/1100"
+				"url": {
+					"raw": "http://localhost:8080/users/5100/follow/1100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"5100",
+						"follow",
+						"1100"
+					]
+				}
 			},
 			"response": []
 		},
@@ -29,7 +52,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1100/followers/list?order=name_desc",
+					"raw": "http://localhost:8080/users/1100/followers/list?order=name_asc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -44,8 +67,30 @@
 					"query": [
 						{
 							"key": "order",
-							"value": "name_desc"
+							"value": "name_asc"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Followers count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1100/followers/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1100",
+						"followers",
+						"count"
 					]
 				}
 			},
