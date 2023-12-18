@@ -8,4 +8,5 @@ public interface IUserRepository {
     List<User> findAll();
     User finById(int id);
     List<User> getUserFollowed(User user);
+
 }
