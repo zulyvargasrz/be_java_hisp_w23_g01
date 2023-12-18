@@ -1,8 +1,8 @@
 package com.meli.socialmeli.repositories.impl;
 
+import com.meli.socialmeli.entities.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.socialmeli.entities.User;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
@@ -12,10 +12,9 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.util.ResourceUtils;
 
 
 @Repository
@@ -36,6 +35,10 @@ public class UserRepositoryImpl implements IUserRepository {
         return users.stream().filter( u -> u.getUser_id() == id ).findFirst().orElse(null);
     }
 
+    @Override
+    public List<User> getUserFollowers(User user) {
+        return user.getFollowers();
+    }
 
     private void loadDataBase() {
         users = new ArrayList<>();

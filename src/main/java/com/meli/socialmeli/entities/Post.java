@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Post {
     private int post_id;
     private LocalDate date;
-    private String category;
+    private Integer category;
     private double price;
     private boolean has_promo;
     private double discount;
