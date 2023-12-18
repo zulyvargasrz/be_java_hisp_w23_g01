@@ -1,6 +1,7 @@
 package com.meli.socialmeli.services.impl;
 
 import com.meli.socialmeli.dtos.MessageDto;
+import com.meli.socialmeli.dtos.response.FollowersCountDto;
 import com.meli.socialmeli.dtos.response.UserResponseDto;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
@@ -12,6 +13,7 @@ import com.meli.socialmeli.services.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import java.util.Optional;
@@ -25,6 +27,27 @@ public class UserServiceImpl implements IUserService {
         this.userRepository = userRepository;
     }
 
+    @Override
+    public UserFollowersDTO findFollowersById(int id, String order) {
+        Optional<User> userFound = Optional.ofNullable(userRepository.finById(id));
+        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
+
+        List<UserInfoDTO> followers = userFound.get().getFollowers().stream()
+                .sorted(order.equals("name_asc")
+                        ? Comparator.comparing(User::getUser_name)
+                        : Comparator.comparing(User::getUser_name).reversed())
+                .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
+                .toList();
+        return new UserFollowersDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followers);
+    }
+
+    @Override
+    public List<User> findFollowsByIdProductService(int id) {
+        Optional<User> user = Optional.ofNullable(userRepository.finById(id));
+        if (user.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
+
+        return userRepository.getUserFollowed(user.get());
+    }
     @Override
     public List<UserResponseDto> findAll() {
         List<User> userList = userRepository.findAll();
@@ -82,19 +105,19 @@ public class UserServiceImpl implements IUserService {
         followedUser.addFollower(followerUser);
 
         return new MessageDto("Followed added");
+
     }
 
     @Override
-    public UserFollowersDTO findFollowersById(int id) {
-        Optional<User> userFound = Optional.ofNullable(userRepository.finById(id));
-        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
-
-        List<UserInfoDTO> followers = userFound.get().getFollowers()
-                .stream()
-                .map( f -> new UserInfoDTO(f.getUser_id(), f.getUser_name() ) )
-                .toList();
-
-        return new UserFollowersDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followers);
+    public FollowersCountDto getFollowersCount(int userId) {
+        User user = userRepository.finById(userId);
+        if(user == null){
+            throw new NotFoundException("Invalid user");
+        }
+        FollowersCountDto followersCountDto = new FollowersCountDto();
+        followersCountDto.setUser_id(user.getUser_id());
+        followersCountDto.setUser_name(user.getUser_name());
+        followersCountDto.setFollowers_count(user.getFollowers().size());
+        return followersCountDto;
     }
-
 }
