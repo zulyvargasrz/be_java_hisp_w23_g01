@@ -4,10 +4,7 @@ import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.services.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -19,7 +16,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId){
-        return ResponseEntity.ok(userService.findFollowersById(userId));
+    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
+        return ResponseEntity.ok(userService.findFollowersById(userId, order));
     }
 }
