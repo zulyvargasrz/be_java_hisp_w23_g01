@@ -1,14 +1,13 @@
 package com.meli.socialmeli.services;
 
 import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.dtos.UserDto;
+
+import com.meli.socialmeli.dtos.response.FollowersCountDto;
 import com.meli.socialmeli.dtos.response.UserResponseDto;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
+import com.meli.socialmeli.dtos.response.UserUnfollowDto;
 
 import java.util.List;
-
-import com.meli.socialmeli.dtos.response.UserFollowersDTO;
-
-import com.meli.socialmeli.dtos.UserUnfollowDto;
 
 public interface IUserService {
 

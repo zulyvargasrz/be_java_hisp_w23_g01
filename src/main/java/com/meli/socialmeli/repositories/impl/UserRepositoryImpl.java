@@ -36,6 +36,7 @@ public class UserRepositoryImpl implements IUserRepository {
         return users.stream().filter( u -> u.getUser_id() == id ).findFirst().orElse(null);
     }
 
+
     private void loadDataBase() {
         users = new ArrayList<>();
         try {
