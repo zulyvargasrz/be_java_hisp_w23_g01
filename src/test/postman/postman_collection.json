@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "5df7d7eb-7637-4297-8863-a72528f12ec6",
+		"_postman_id": "1dd5d2c4-5f84-4610-8d60-d6c72791f057",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -10,17 +10,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users"
-					]
-				}
+				"url": "http://localhost:8080/users"
 			},
 			"response": []
 		},
@@ -29,8 +19,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"url": "http://localhost:8080/users/100/follow/1100"
+			},
+			"response": []
+		},
+		{
+			"name": "Get followers",
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/100/follow/1100",
+					"raw": "http://localhost:8080/users/1100/followers/list?order=name_desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -38,9 +37,15 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"100",
-						"follow",
-						"1100"
+						"1100",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						}
 					]
 				}
 			},

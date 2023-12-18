@@ -10,7 +10,8 @@ import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 
 public interface IUserService {
 
+    UserFollowersDTO findFollowersById(int id, String order);
     List<UserResponseDto> findAll();
     MessageDto followSeller(int userId, int userIdToFollow);
-    UserFollowersDTO findFollowersById(int id);
+
 }
