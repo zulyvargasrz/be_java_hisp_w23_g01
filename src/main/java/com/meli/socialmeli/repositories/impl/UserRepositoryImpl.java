@@ -23,7 +23,6 @@ public class UserRepositoryImpl implements IUserRepository {
     private List<User> users;
     public UserRepositoryImpl() throws IOException {
         loadDataBase();
-        System.out.println(users);
     }
 
     @Override
