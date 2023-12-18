@@ -1,15 +1,14 @@
 package com.meli.socialmeli.services.impl;
 
 import com.meli.socialmeli.dtos.response.*;
-import com.meli.socialmeli.entities.User;
-
-import com.meli.socialmeli.repositories.IUserRepository;
-
 import com.meli.socialmeli.dtos.MessageDto;
 
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
-
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
+
+import com.meli.socialmeli.repositories.IUserRepository;
+
+import com.meli.socialmeli.entities.User;
 
 import com.meli.socialmeli.services.IUserService;
 
@@ -148,7 +147,6 @@ public class UserServiceImpl implements IUserService {
             throw new NotFoundException("Followed user with id " + userIdToUnfollow + " not found");
         }
         user.setFollowed(followedUsers);
-
         return new UserUnfollowDto(userId, userIdToUnfollow);
     }
 
