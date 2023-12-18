@@ -1,12 +1,10 @@
 package com.meli.socialmeli.repositories.impl;
 
-import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import org.springframework.stereotype.Repository;
@@ -17,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository {
