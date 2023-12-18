@@ -12,21 +12,18 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class ExceptionConfig {
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionDTO> handlerNotFoundExcepcion(NotFoundException e){
-        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getMessage());
-        return new ResponseEntity<>(exceptionDTO, HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> handlerNotFoundExcepcion(NotFoundException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(DataSourceException.class)
-    public ResponseEntity<ExceptionDTO> handlerDataSoureException(DataSourceException e){
-        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getMessage());
-        return new ResponseEntity<>(exceptionDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> handlerDataSoureException(DataSourceException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ExceptionDTO> handlerMethodArgument(MethodArgumentTypeMismatchException e){
-        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getMessage());
-        return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> handlerMethodArgument(MethodArgumentTypeMismatchException e){
+        return new ResponseEntity<>(new ExceptionDTO(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }

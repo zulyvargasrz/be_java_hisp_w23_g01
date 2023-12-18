@@ -20,6 +20,6 @@ public class UserController {
 
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId){
-        return new ResponseEntity<>(userService.findFollowersById(userId), HttpStatus.OK);
+        return ResponseEntity.ok(userService.findFollowersById(userId));
     }
 }
