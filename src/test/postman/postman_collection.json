@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "cb9e5213-dc6a-4ce9-baa9-6dfad3d877cc",
+		"_postman_id": "474e1373-8104-488b-b465-af15fdabf10d",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31612957"
 	},
 	"item": [
 		{
@@ -13,7 +14,18 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{baseURL}}/users/100/follow/1100"
+						"url": {
+							"raw": "{{baseURL}}/users/100/follow/1100",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"100",
+								"follow",
+								"1100"
+							]
+						}
 					},
 					"response": []
 				},
@@ -22,7 +34,18 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{baseURL}}/users/100/follow/1100"
+						"url": {
+							"raw": "{{baseURL}}/users/100/follow/1100",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"100",
+								"follow",
+								"1100"
+							]
+						}
 					},
 					"response": []
 				},
@@ -31,7 +54,18 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{baseURL}}/users/100/follow/1100"
+						"url": {
+							"raw": "{{baseURL}}/users/100/follow/1100",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"100",
+								"follow",
+								"1100"
+							]
+						}
 					},
 					"response": []
 				}
@@ -45,7 +79,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{baseURL}}/users/1100/followers/count"
+						"url": {
+							"raw": "{{baseURL}}/users/1100/followers/count",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"1100",
+								"followers",
+								"count"
+							]
+						}
 					},
 					"response": []
 				}
@@ -85,7 +130,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -99,7 +146,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -108,7 +157,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -126,7 +177,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -135,7 +188,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -144,7 +199,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -152,7 +209,30 @@
 		},
 		{
 			"name": "US 007",
-			"item": []
+			"item": [
+				{
+					"name": "Unfollow user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/100/unfollow/2100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"100",
+								"unfollow",
+								"2100"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Load test data",
@@ -204,7 +284,15 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{baseURL}}/users"
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
 			},
 			"response": []
 		},
@@ -213,7 +301,15 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{baseURL}}/users"
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
 			},
 			"response": []
 		}

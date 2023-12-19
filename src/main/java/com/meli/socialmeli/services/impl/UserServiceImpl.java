@@ -133,4 +133,23 @@ public class UserServiceImpl implements IUserService {
                 .toList();
         return new UserFollowedDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followed);
     }
+
+    @Override
+    public UserUnfollowDTO unfollowUser(int userId, int userIdToUnfollow) {
+        User user = this.userRepository.finById(userId);
+        User userToUnfollow = this.userRepository.finById(userIdToUnfollow);
+
+        if (user == null || userToUnfollow == null) {
+            throw new NotFoundException("User not found");
+        }
+
+        boolean removedFromFollowed = user.getFollowed().remove(userToUnfollow);
+        boolean removedFromFollowers = userToUnfollow.getFollowers().remove(user);
+
+        if (!removedFromFollowed || !removedFromFollowers) {
+            throw new NotFoundException("Followed user not found");
+        }
+
+        return new UserUnfollowDTO(userId, userIdToUnfollow);
+    }
 }
