@@ -6,6 +6,9 @@ import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
 
 
 public interface IProductService {
-    PostsFromFollowsDTO getAllPostsFollowsLastTwoWeeks(Integer userId);
+
     MessageDto newPost(PostDTO post);
+
+    PostsFromFollowsDTO getAllPostsFollowsLastTwoWeeks(Integer userId, String order);
+
 }

@@ -1,5 +1,6 @@
 package com.meli.socialmeli.controllers;
 
+import com.meli.socialmeli.dtos.response.UserFollowedDTO;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.services.IUserService;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,15 @@ public class UserController {
         return ResponseEntity.ok(userService.getFollowersCount(userId));
     }
 
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<UserFollowedDTO> getFollowedById(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
+        return ResponseEntity.ok(userService.findFollowedById(userId, order));
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow){
+        return ResponseEntity.ok(userService.unfollowUser(userId, userIdToUnfollow));
+    }
 
 
 }

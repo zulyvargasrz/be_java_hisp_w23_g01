@@ -1,13 +1,10 @@
 package com.meli.socialmeli.services.impl;
 
 import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.dtos.response.FollowersCountDto;
-import com.meli.socialmeli.dtos.response.UserResponseDto;
+import com.meli.socialmeli.dtos.response.*;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.repositories.IUserRepository;
-import com.meli.socialmeli.dtos.response.UserFollowersDTO;
-import com.meli.socialmeli.dtos.response.UserInfoDTO;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.services.IUserService;
 import org.springframework.stereotype.Service;
@@ -28,16 +25,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserFollowersDTO findFollowersById(int id, String order) {
-        Optional<User> userFound = Optional.ofNullable(userRepository.finById(id));
-        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
+    public UserFollowersDTO findFollowersById(int userId, String order) {
+        Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
+        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
 
-        List<UserInfoDTO> followers = userFound.get().getFollowers().stream()
-                .sorted(order.equals("name_asc")
-                        ? Comparator.comparing(User::getUser_name)
-                        : Comparator.comparing(User::getUser_name).reversed())
-                .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
-                .toList();
+        List<UserInfoDTO> followers = userFound.get().getFollowers()
+                                                     .stream()
+                                                     .sorted(order.equals("name_asc")
+                                                        ? Comparator.comparing(User::getUser_name)
+                                                        : Comparator.comparing(User::getUser_name).reversed())
+                                                    .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
+                                                    .toList();
         return new UserFollowersDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followers);
     }
 
@@ -119,5 +117,39 @@ public class UserServiceImpl implements IUserService {
         followersCountDto.setUser_name(user.getUser_name());
         followersCountDto.setFollowers_count(user.getFollowers().size());
         return followersCountDto;
+    }
+
+    @Override
+    public UserFollowedDTO findFollowedById(int userId, String order) {
+        Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
+        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
+
+        List<UserInfoDTO> followed = userFound.get().getFollowed()
+                .stream()
+                .sorted(order.equals("name_asc")
+                        ? Comparator.comparing(User::getUser_name)
+                        : Comparator.comparing(User::getUser_name).reversed())
+                .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
+                .toList();
+        return new UserFollowedDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followed);
+    }
+
+    @Override
+    public UserUnfollowDTO unfollowUser(int userId, int userIdToUnfollow) {
+        User user = this.userRepository.finById(userId);
+        User userToUnfollow = this.userRepository.finById(userIdToUnfollow);
+
+        if (user == null || userToUnfollow == null) {
+            throw new NotFoundException("User not found");
+        }
+
+        boolean removedFromFollowed = user.getFollowed().remove(userToUnfollow);
+        boolean removedFromFollowers = userToUnfollow.getFollowers().remove(user);
+
+        if (!removedFromFollowed || !removedFromFollowers) {
+            throw new NotFoundException("Followed user not found");
+        }
+
+        return new UserUnfollowDTO(userId, userIdToUnfollow);
     }
 }
