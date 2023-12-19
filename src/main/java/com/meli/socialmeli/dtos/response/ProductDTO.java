@@ -1,18 +1,17 @@
-package com.meli.socialmeli.entities;
+package com.meli.socialmeli.dtos.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-public class Product {
-    private int product_id;
+@AllArgsConstructor
+public class ProductDTO {
+    private Integer product_id;
     private String product_name;
     private String type;
     private String brand;
     private String color;
     private String notes;
-
 }
