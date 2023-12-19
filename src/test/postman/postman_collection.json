@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "474e1373-8104-488b-b465-af15fdabf10d",
+		"_postman_id": "8c6c5b71-f90c-4ab7-a7f7-c85e306a0318",
 		"name": "Sprint 1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31612957"
+		"_exporter_id": "31896612"
 	},
 	"item": [
 		{
@@ -178,7 +178,42 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/products/followed/100/list?order=date_asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"100",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts last to weeks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/followed/100/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"100",
+								"list"
+							]
 						}
 					},
 					"response": []
@@ -189,7 +224,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/products/followed/1100/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"1100",
+								"list"
+							]
 						}
 					},
 					"response": []
@@ -200,7 +244,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/products/followed/100/list?order=date_desc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"100",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
 						}
 					},
 					"response": []
