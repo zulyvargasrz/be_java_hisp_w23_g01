@@ -5,10 +5,7 @@ import com.meli.socialmeli.services.IProductService;
 import com.meli.socialmeli.services.impl.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
@@ -21,4 +18,6 @@ public class ProductController {
     public ResponseEntity<PostsFromFollowsDTO> getAllPostsFollowsLastTwoWeeks(@PathVariable Integer userId) {
         return new ResponseEntity<>(iProductService.getAllPostsFollowsLastTwoWeeks(userId), HttpStatus.OK);
     }
+
+   // @PostMapping("/")
 }
