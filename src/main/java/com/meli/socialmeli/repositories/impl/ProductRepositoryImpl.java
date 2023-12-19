@@ -23,8 +23,13 @@ public class ProductRepositoryImpl implements IProductRepository {
                 .toList();
     }
 
+    @Override
     public void newPost(User user) {
 
-        users.set(users.indexOf(user), user);
     }
+
+ /*   @Override
+    public void newPost(User user) {
+        users.set(users.indexOf(user), user);
+    }*/
 }
