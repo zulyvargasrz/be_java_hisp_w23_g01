@@ -11,7 +11,7 @@ public class Mappers {
         return new Product(productDTO.getProduct_id(), productDTO.getProduct_name(), productDTO.getType(), productDTO.getBrand(), productDTO.getColor(), productDTO.getNotes());
 
     }
-    public static Post mapNewPost(PostDTO post){
-        return new Post(post.getDate(), mapProduct(post.getProduct()), post.getCategory(), post.getPrice());
+    public static Post mapNewPost(PostDTO post, int post_id){
+        return new Post(post.getDate(), mapProduct(post.getProduct()), post.getCategory(), post.getPrice(), post_id);
     }
 }

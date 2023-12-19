@@ -23,9 +23,4 @@ public class ProductRepositoryImpl implements IProductRepository {
                 .toList();
     }
 
-    @Override
-    public void newPost(User user) {
-
-    }
-
 }
