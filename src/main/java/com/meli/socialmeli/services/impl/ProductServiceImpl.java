@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -83,15 +84,13 @@ public class ProductServiceImpl implements IProductService {
             throw new NotFoundException("Invalid user");
         }
 
-        if (!user.getPosts().isEmpty()){
-            user.getPosts().add(Mappers.mapNewPost(post));
+        if (user.getPosts().isEmpty()){
+            user.getPosts().add(Mappers.mapNewPost(post,100));
         }
         else {
-            posts.add(Mappers.mapNewPost(post));
-            posts.addAll(user.getPosts());
-            user.setPosts(posts);
+            int numberPosts = user.getPosts().size();
+            user.addPost(Mappers.mapNewPost(post, user.getPosts().get(numberPosts - 1).getPost_id() + 1000));
         }
-        productRepository.newPost(user);
         return new MessageDTO("The User "+ user.getUser_id() + " has created new post.");
     }
 }

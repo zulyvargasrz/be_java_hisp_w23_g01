@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface IProductRepository {
     List<Post> getPostsFollowersLastTwoWeeks(List<User> follows);
-
-    void newPost(User user);
 }

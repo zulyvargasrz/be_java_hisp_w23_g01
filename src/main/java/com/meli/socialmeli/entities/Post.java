@@ -18,7 +18,8 @@ public class Post {
     private double discount;
     private Product product;
 
-    public Post(LocalDate date, Product product, int category, double price) {
+    public Post(LocalDate date, Product product, int category, double price, int post_id) {
+        this.post_id = post_id;
         this.date = date;
         this.product = product;
         this.category = category;
