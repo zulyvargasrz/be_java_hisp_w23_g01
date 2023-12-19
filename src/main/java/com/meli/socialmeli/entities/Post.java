@@ -17,4 +17,7 @@ public class Post {
     private boolean has_promo;
     private double discount;
     private Product product;
+
+    public Post(LocalDate date, Product product, int category, double price) {
+    }
 }

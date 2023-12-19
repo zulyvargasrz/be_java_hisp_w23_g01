@@ -1,28 +1,34 @@
 package com.meli.socialmeli.services.impl;
 
-import com.meli.socialmeli.dtos.response.PostNoPromoDTO;
-import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
-import com.meli.socialmeli.dtos.response.ProductDTO;
+import com.meli.socialmeli.dtos.MessageDto;
+import com.meli.socialmeli.dtos.response.*;
 import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IProductRepository;
+import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.repositories.impl.ProductRepositoryImpl;
 import com.meli.socialmeli.services.IProductService;
 import com.meli.socialmeli.services.IUserService;
+import com.meli.socialmeli.utilities.Mappers;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 import java.util.Comparator;
+
 import java.util.List;
 import java.util.stream.Stream;
 
 @Service
 public class ProductServiceImpl implements IProductService {
     private final IProductRepository productRepository;
+    private final IUserRepository userRepository ;
     private final IUserService userService;
 
-    public ProductServiceImpl(ProductRepositoryImpl productRepository, UserServiceImpl userService) {
+    public ProductServiceImpl(ProductRepositoryImpl productRepository, IUserRepository userRepository, UserServiceImpl userService) {
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
         this.userService = userService;
     }
 
@@ -65,5 +71,21 @@ public class ProductServiceImpl implements IProductService {
         }
 
         return new PostsFromFollowsDTO(userId, posts);
+    }
+
+    @Override
+    public MessageDto newPost(PostDTO post){
+        List<Post> posts = new ArrayList<>();
+        User user = userRepository.finById(post.getUserId());
+        if(user == null){
+            throw new NotFoundException("Invalid user");
+        }
+
+        posts.add(Mappers.mapNewPost(post));
+        posts.addAll(user.getPosts());
+        user.setPosts(posts);
+
+        productRepository.newPost(user);
+        return new MessageDto("The User "+ user.getUser_id() + " has created new post.");
     }
 }
