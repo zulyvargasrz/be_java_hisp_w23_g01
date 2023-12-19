@@ -1,6 +1,9 @@
-package com.meli.socialmeli.dtos.response;
+package com.meli.socialmeli.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.meli.socialmeli.dtos.response.ProductDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

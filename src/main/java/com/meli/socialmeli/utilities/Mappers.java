@@ -1,6 +1,6 @@
 package com.meli.socialmeli.utilities;
 
-import com.meli.socialmeli.dtos.response.PostDTO;
+import com.meli.socialmeli.dtos.request.PostDTO;
 import com.meli.socialmeli.dtos.response.ProductDTO;
 import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.Product;

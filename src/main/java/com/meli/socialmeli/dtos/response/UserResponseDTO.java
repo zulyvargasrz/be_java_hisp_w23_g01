@@ -1,7 +1,5 @@
-package com.meli.socialmeli.dtos;
+package com.meli.socialmeli.dtos.response;
 
-import com.meli.socialmeli.entities.Post;
-import com.meli.socialmeli.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class UserResponseDTO {
     private Integer user_id;
     private String user_name;
-    private List<User> followers;
-    private List<User> followed;
-    private List<Post> posts;
+    private List<String> followers;
+    private List<String> followed;
 }

@@ -4,6 +4,7 @@ import com.meli.socialmeli.dtos.response.ExceptionDTO;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

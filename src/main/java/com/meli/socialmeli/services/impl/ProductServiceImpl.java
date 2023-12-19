@@ -1,7 +1,10 @@
 package com.meli.socialmeli.services.impl;
 
-import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.dtos.response.*;
+import com.meli.socialmeli.dtos.request.PostDTO;
+import com.meli.socialmeli.dtos.response.MessageDTO;
+import com.meli.socialmeli.dtos.response.PostNoPromoDTO;
+import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
+import com.meli.socialmeli.dtos.response.ProductDTO;
 import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
@@ -11,12 +14,11 @@ import com.meli.socialmeli.repositories.impl.ProductRepositoryImpl;
 import com.meli.socialmeli.services.IProductService;
 import com.meli.socialmeli.services.IUserService;
 import com.meli.socialmeli.utilities.Mappers;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-
 import java.util.Comparator;
-
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -74,7 +76,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public MessageDto newPost(PostDTO post){
+    public MessageDTO newPost(PostDTO post){
         List<Post> posts = new ArrayList<>();
         User user = userRepository.finById(post.getUserId());
         if(user == null){
@@ -86,6 +88,6 @@ public class ProductServiceImpl implements IProductService {
         user.setPosts(posts);
 
         productRepository.newPost(user);
-        return new MessageDto("The User "+ user.getUser_id() + " has created new post.");
+        return new MessageDTO("The User "+ user.getUser_id() + " has created new post.");
     }
 }

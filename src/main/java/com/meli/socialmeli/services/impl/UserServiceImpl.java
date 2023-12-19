@@ -1,12 +1,19 @@
 package com.meli.socialmeli.services.impl;
 
-import com.meli.socialmeli.dtos.MessageDto;
-import com.meli.socialmeli.dtos.response.*;
+import com.meli.socialmeli.dtos.response.MessageDTO;
+import com.meli.socialmeli.dtos.response.UserInfoDTO;
+import com.meli.socialmeli.dtos.response.UserUnfollowDTO;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
+import com.meli.socialmeli.dtos.response.UserFollowedDTO;
+import com.meli.socialmeli.dtos.response.UserResponseDTO;
+import com.meli.socialmeli.dtos.response.FollowersCountDTO;
+
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.services.IUserService;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,11 +54,11 @@ public class UserServiceImpl implements IUserService {
         return userRepository.getUserFollowed(user.get());
     }
     @Override
-    public List<UserResponseDto> findAll() {
+    public List<UserResponseDTO> findAll() {
         List<User> userList = userRepository.findAll();
-        List<UserResponseDto> userResponseDtoList = new ArrayList<>();
+        List<UserResponseDTO> userResponseDtoList = new ArrayList<>();
         userList.forEach(u ->  {
-            UserResponseDto userResponseDto = new UserResponseDto();
+            UserResponseDTO userResponseDto = new UserResponseDTO();
 
             userResponseDto.setUser_id(u.getUser_id());
             userResponseDto.setUser_name(u.getUser_name());
@@ -72,7 +79,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public MessageDto followSeller(int userId, int userIdToFollow) {
+    public MessageDTO followSeller(int userId, int userIdToFollow) {
         User followerUser = userRepository.findAll()
                 .stream()
                 .filter(u -> userId == u.getUser_id())
@@ -102,17 +109,17 @@ public class UserServiceImpl implements IUserService {
         followerUser.addFollowed(followedUser);
         followedUser.addFollower(followerUser);
 
-        return new MessageDto("Followed added");
+        return new MessageDTO("Followed added");
 
     }
 
     @Override
-    public FollowersCountDto getFollowersCount(int userId) {
+    public FollowersCountDTO getFollowersCount(int userId) {
         User user = userRepository.finById(userId);
         if(user == null){
             throw new NotFoundException("Invalid user");
         }
-        FollowersCountDto followersCountDto = new FollowersCountDto();
+        FollowersCountDTO followersCountDto = new FollowersCountDTO();
         followersCountDto.setUser_id(user.getUser_id());
         followersCountDto.setUser_name(user.getUser_name());
         followersCountDto.setFollowers_count(user.getFollowers().size());
@@ -125,12 +132,12 @@ public class UserServiceImpl implements IUserService {
         if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
 
         List<UserInfoDTO> followed = userFound.get().getFollowed()
-                .stream()
-                .sorted(order.equals("name_asc")
-                        ? Comparator.comparing(User::getUser_name)
-                        : Comparator.comparing(User::getUser_name).reversed())
-                .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
-                .toList();
+                                                    .stream()
+                                                    .sorted(order.equals("name_asc")
+                                                            ? Comparator.comparing(User::getUser_name)
+                                                            : Comparator.comparing(User::getUser_name).reversed())
+                                                    .map(f -> new UserInfoDTO(f.getUser_id(), f.getUser_name()))
+                                                    .toList();
         return new UserFollowedDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followed);
     }
 

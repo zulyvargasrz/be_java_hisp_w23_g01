@@ -3,12 +3,12 @@ package com.meli.socialmeli.repositories.impl;
 import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.repositories.IProductRepository;
+
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ProductRepositoryImpl implements IProductRepository {
@@ -28,8 +28,4 @@ public class ProductRepositoryImpl implements IProductRepository {
 
     }
 
- /*   @Override
-    public void newPost(User user) {
-        users.set(users.indexOf(user), user);
-    }*/
 }
