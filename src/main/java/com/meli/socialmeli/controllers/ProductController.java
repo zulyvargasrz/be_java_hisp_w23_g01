@@ -1,5 +1,6 @@
 package com.meli.socialmeli.controllers;
 
+import com.meli.socialmeli.dtos.response.PostDTO;
 import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
 import com.meli.socialmeli.services.IProductService;
 import com.meli.socialmeli.services.impl.ProductServiceImpl;
@@ -19,5 +20,8 @@ public class ProductController {
         return new ResponseEntity<>(iProductService.getAllPostsFollowsLastTwoWeeks(userId), HttpStatus.OK);
     }
 
-   // @PostMapping("/")
+    @PostMapping("/post")
+    public ResponseEntity<?> newPost(@RequestBody PostDTO post){
+        return new ResponseEntity<>(iProductService.newPost(post), HttpStatus.OK);
+    }
 }
