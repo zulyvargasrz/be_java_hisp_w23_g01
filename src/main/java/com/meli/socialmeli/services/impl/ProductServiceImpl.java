@@ -84,13 +84,12 @@ public class ProductServiceImpl implements IProductService {
             throw new NotFoundException("Invalid user");
         }
 
-        if (!user.getPosts().isEmpty()){
+        if (user.getPosts().isEmpty()){
             user.getPosts().add(Mappers.mapNewPost(post,100));
         }
         else {
-            posts.addAll(user.getPosts());
-            posts.add(Mappers.mapNewPost(post, user.getPosts().get(user.getPosts().size() - 1).getPost_id() + 1000));
-            user.setPosts(posts);
+            int numberPosts = user.getPosts().size();
+            user.addPost(Mappers.mapNewPost(post, user.getPosts().get(numberPosts - 1).getPost_id() + 1000));
         }
         return new MessageDTO("The User "+ user.getUser_id() + " has created new post.");
     }
