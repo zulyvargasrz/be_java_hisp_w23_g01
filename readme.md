@@ -49,7 +49,7 @@ URL base: http://localhost:8080
    **Ejemplo:** /users/234/followers/count/
 
 
-3. **[GET] US 0003:**Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?):
+3. **[GET] US 0003:** Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?):
 
    ***Reponsable: Zuly Vargas***
 
@@ -138,10 +138,11 @@ URL base: http://localhost:8080
    **Ejemplo:** /users/234/unfollow/123
 
 
+
 ## Integrantes:
 - Andres Alejandro Limpio
 - Alfredo Tonatiuh Diaz
-- Fernando Meza
+- Fernando Meza Ortega
 - Yadir Danilo Quiroga
 - Zuly Valentina Vargas
 
