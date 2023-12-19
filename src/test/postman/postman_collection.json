@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "bb7ff149-b499-4c52-b755-70b90268d939",
+		"_postman_id": "366d6309-b4c6-4379-b011-acc9f40b7af3",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -13,18 +13,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/2100/follow/1100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"2100",
-								"follow",
-								"1100"
-							]
-						}
+						"url": "{{baseURL}}/users/2100/follow/1100"
 					},
 					"response": []
 				},
@@ -33,18 +22,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/100/follow/1100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"100",
-								"follow",
-								"1100"
-							]
-						}
+						"url": "{{baseURL}}/users/100/follow/1100"
 					},
 					"response": []
 				},
@@ -53,18 +31,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/100/follow/100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"100",
-								"follow",
-								"100"
-							]
-						}
+						"url": "{{baseURL}}/users/100/follow/100"
 					},
 					"response": []
 				}
@@ -78,18 +45,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/1100/followers/count",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"1100",
-								"followers",
-								"count"
-							]
-						}
+						"url": "{{baseURL}}/users/1100/followers/count"
 					},
 					"response": []
 				}
@@ -99,7 +55,7 @@
 			"name": "US 003 with 008",
 			"item": [
 				{
-					"name": "Get followers - Name desc",
+					"name": "Get followers - Name asc",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -125,7 +81,7 @@
 					"response": []
 				},
 				{
-					"name": "Get followers - Name asc",
+					"name": "Get followers - Name desc",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -147,6 +103,24 @@
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get followers - asc by default",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/users/1100/followers/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get followers - id invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/users/1502/followers/list"
 					},
 					"response": []
 				}
@@ -226,19 +200,26 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8080/products/post",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"products",
-								"post"
-							]
-						},
+						"url": "http://localhost:8080/products/post",
 						"description": "Crea nueva publicacion para el usuario indicado"
+					},
+					"response": []
+				},
+				{
+					"name": "New Post - id invalid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 10,\n    \"date\": \"2021-09-04\",\n    \"product\": {\n        \"product_id\": 1,\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/products/post"
 					},
 					"response": []
 				}
@@ -278,18 +259,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/products/followed/100/list",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"products",
-								"followed",
-								"100",
-								"list"
-							]
-						}
+						"url": "{{baseURL}}/products/followed/100/list"
 					},
 					"response": []
 				},
@@ -298,18 +268,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/products/followed/1100/list",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"products",
-								"followed",
-								"1100",
-								"list"
-							]
-						}
+						"url": "{{baseURL}}/products/followed/1100/list"
 					},
 					"response": []
 				},
@@ -349,20 +308,25 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/100/unfollow/2100",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"100",
-								"unfollow",
-								"2100"
-							]
-						}
+						"url": "http://localhost:8080/users/100/unfollow/2100"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id follower",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/users/2890/unfollow/2100"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id followed",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/users/100/unfollow/2145"
 					},
 					"response": []
 				}
@@ -418,15 +382,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		},
@@ -435,15 +391,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		}
