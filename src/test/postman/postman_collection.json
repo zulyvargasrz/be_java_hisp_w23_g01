@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "474e1373-8104-488b-b465-af15fdabf10d",
+		"_postman_id": "98938e31-3e71-4eef-b04a-12c6cca7a1eb",
 		"name": "Sprint 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31612957"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -14,18 +13,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/100/follow/1100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"100",
-								"follow",
-								"1100"
-							]
-						}
+						"url": "{{baseURL}}/users/2100/follow/1100"
 					},
 					"response": []
 				},
@@ -34,18 +22,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/100/follow/1100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"100",
-								"follow",
-								"1100"
-							]
-						}
+						"url": "{{baseURL}}/users/100/follow/1100"
 					},
 					"response": []
 				},
@@ -54,18 +31,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/100/follow/1100",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"100",
-								"follow",
-								"1100"
-							]
-						}
+						"url": "{{baseURL}}/users/100/follow/100"
 					},
 					"response": []
 				}
@@ -79,18 +45,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{baseURL}}/users/1100/followers/count",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"users",
-								"1100",
-								"followers",
-								"count"
-							]
-						}
+						"url": "{{baseURL}}/users/1100/followers/count"
 					},
 					"response": []
 				}
@@ -131,7 +86,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/users/1100/followers/list?order=name_desc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"1100",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
 						}
 					},
 					"response": []
@@ -147,7 +117,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/users/100/followed/list?order=name_asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"100",
+								"followed",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
+							]
 						}
 					},
 					"response": []
@@ -158,7 +143,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/users/100/followed/list?order=name_desc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"100",
+								"followed",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
 						}
 					},
 					"response": []
@@ -178,8 +178,32 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/products/followed/100/list?order=date_asc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"100",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_asc"
+								}
+							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Posts last to weeks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/products/followed/100/list"
 					},
 					"response": []
 				},
@@ -188,9 +212,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": ""
-						}
+						"url": "{{baseURL}}/products/followed/1100/list"
 					},
 					"response": []
 				},
@@ -200,7 +222,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "{{baseURL}}/products/followed/100/list?order=date_desc",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"followed",
+								"100",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
 						}
 					},
 					"response": []
@@ -215,20 +252,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/users/100/unfollow/2100",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"users",
-								"100",
-								"unfollow",
-								"2100"
-							]
-						}
+						"url": "http://localhost:8080/users/100/unfollow/2100"
 					},
 					"response": []
 				}
@@ -284,15 +308,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		},
@@ -301,15 +317,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/users",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"users"
-					]
-				}
+				"url": "{{baseURL}}/users"
 			},
 			"response": []
 		}
