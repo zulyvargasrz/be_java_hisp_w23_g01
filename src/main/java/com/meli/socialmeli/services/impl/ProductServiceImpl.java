@@ -58,6 +58,10 @@ public class ProductServiceImpl implements IProductService {
                 }
             });
         });
+        if(postNoPromoDTOList.isEmpty()){
+            throw new NotFoundException("The sellers of the user with id: " + userId +
+                    " do not have any publications in the last two weeks");
+        }
         return postNoPromoDTOList;
     }
     @Override
