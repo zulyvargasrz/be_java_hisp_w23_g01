@@ -1,9 +1,14 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.response.UserFollowedDTO;
+import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
-import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meli.socialmeli.dtos.response.MessageDTO;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
 import com.meli.socialmeli.repositories.IUserRepository;
@@ -12,10 +17,6 @@ import com.meli.socialmeli.services.impl.UserServiceImpl;
 import util.UserDTOUtilsGenerator;
 import util.UserEntityUtilsGenerator;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +36,6 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -65,7 +65,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Todo ok")
-    void followSellerOk(){
+    public void followSellerOk(){
         //Arrange
         int userIdFollower = 100;
         int userIdFollowed = 1100;
@@ -82,7 +82,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario a seguir no encontrado")
-    void followSellerInvalidFollowed(){
+    public void followSellerInvalidFollowed(){
         //Arrange
         int userIdFollower = 100;
         int userIdFollowed = 9999;
@@ -98,7 +98,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario seguidor no encontrado")
-    void followSellerInvalidFollower(){
+    public void followSellerInvalidFollower(){
         //Arrange
         int userIdFollower = 9999;
         int userIdFollowed = 100;
@@ -114,7 +114,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Vendedor ya seguido")
-    void followSellerAlreadyFollowed(){
+    public void followSellerAlreadyFollowed(){
         //Arrange
         List<User> userList = loadTestUsers();
         int userIdFollower = userList.get(0).getUser_id();
@@ -132,7 +132,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario a seguir sin posts")
-    void followSellerWithoutPosts(){
+    public void followSellerWithoutPosts(){
         //Arrange
         List<User> userList = loadTestUsers();
         int userIdFollower = 100;
@@ -148,7 +148,7 @@ class UserServiceImplTest {
 
     @Test
     @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario siguiéndose a sí mismo")
-    void followSellerSameUser(){
+    public void followSellerSameUser(){
         //Arrange
         List<User> userList = loadTestUsers();
         int userIdFollower = 100;
@@ -272,4 +272,55 @@ class UserServiceImplTest {
         //Act - Assert
         assertThrows(BadRequestException.class, ()->userService.findFollowersById(100000, "empty"));
     }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_asc")
+    void getFollowedListByNameAscShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderAsc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_asc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_desc")
+    void getFollowedListByNameDescShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderDesc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_desc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Notificar con excepción - Orden no válido")
+    void getFollowedListByNameEmptyShouldThrowException() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowers();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        //Act - Assert
+        assertThrows(BadRequestException.class, ()->userService.findFollowedById(100000, "empty"));
+    }
+
+
+
+
 }
