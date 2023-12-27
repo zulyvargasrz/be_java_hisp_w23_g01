@@ -1,7 +1,0 @@
-
-l	java:S116"RRename this field "user_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â†âèùÿÿÿÿ
-g	java:S116"RRename this field "post_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»óûæ
-c
-java:S1128"HRemove this unused import 'com.fasterxml.jackson.annotation.JsonFormat'.(ıÙè‹øÿÿÿÿ
-_
-java:S1128"DRemove this unused import 'jakarta.validation.constraints.NotBlank'.(ÕØ¡Õøÿÿÿÿ
