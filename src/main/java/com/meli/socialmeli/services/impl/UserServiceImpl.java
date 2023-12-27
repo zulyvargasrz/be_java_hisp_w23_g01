@@ -129,7 +129,7 @@ public class UserServiceImpl implements IUserService {
     public FollowersCountDTO getFollowersCount(int userId) {
         User user = userRepository.finById(userId);
         if(user == null){
-            throw new NotFoundException("Invalid user");
+            throw new NotFoundException("Usuario no encontrado");
         }
         FollowersCountDTO followersCountDto = new FollowersCountDTO();
         followersCountDto.setUser_id(user.getUser_id());
