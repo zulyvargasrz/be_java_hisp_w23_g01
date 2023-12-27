@@ -1,5 +1,6 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.response.UserFollowedDTO;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
@@ -192,7 +193,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("T-0003:Verificar que el tipo de ordenamiento alfabético exista. Continuar con normalidad - Orden no válido")
+    @DisplayName("T-0003:Verificar que el tipo de ordenamiento alfabético exista. Orden no válido")
     void getFollowersListByNameEmptyShouldThrowException() {
         //Arrange
         User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowers();
@@ -201,4 +202,55 @@ class UserServiceImplTest {
         //Act - Assert
         assertThrows(BadRequestException.class, ()->userService.findFollowersById(100000, "empty"));
     }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_asc")
+    void getFollowedListByNameAscShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderAsc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_asc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_desc")
+    void getFollowedListByNameDescShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderDesc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_desc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Notificar con excepción - Orden no válido")
+    void getFollowedListByNameEmptyShouldThrowException() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowers();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        //Act - Assert
+        assertThrows(BadRequestException.class, ()->userService.findFollowedById(100000, "empty"));
+    }
+
+
+
+
 }
