@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meli.socialmeli.dtos.response.MessageDTO;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
-import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.impl.UserServiceImpl;
 
