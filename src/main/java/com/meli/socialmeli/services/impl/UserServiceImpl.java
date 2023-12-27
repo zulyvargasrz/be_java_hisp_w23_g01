@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followerUser == null){
-            throw new BadRequestException("User not found");
+            throw new BadRequestException("Usuario seguidor no encontrado");
         }
 
         User followedUser = userRepository.findAll()
@@ -104,21 +104,21 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followedUser == null){
-            throw new BadRequestException("User not found");
+            throw new BadRequestException("Usuario a seguir no encontrado");
         }
 
         if(followedUser.getFollowers().contains(followerUser)){
-            throw new BadRequestException("User already followed");
+            throw new BadRequestException("El usuario ya sigue al usuario deseado");
         }
 
         if(followedUser.getPosts().isEmpty() || userId == userIdToFollow){
-            throw new BadRequestException("Invalid User to follow");
+            throw new BadRequestException("Usuario inválido para seguir");
         }
 
         followerUser.addFollowed(followedUser);
         followedUser.addFollower(followerUser);
 
-        return new MessageDTO("Followed added");
+        return new MessageDTO("Usuario seguido agregado");
 
     }
 
