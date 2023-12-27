@@ -26,12 +26,20 @@ public class ProductController {
     public ProductController(ProductServiceImpl productService){
         this.iProductService = productService;
     }
+    /*
+        US-0006: Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas
+        dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
+        US-0009: Ordenamiento por fecha ascendente y descendente.
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostsFromFollowsDTO> getAllPostsFollowsLastTwoWeeks(@PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order)
     {
         return new ResponseEntity<>(iProductService.getAllPostsFollowsLastTwoWeeks(userId, order), HttpStatus.OK);
     }
 
+    /*
+        US-0005: Dar de alta una nueva publicación.
+    */
     @PostMapping("/post")
     public ResponseEntity<?> newPost(@RequestBody PostDTO post){
         return new ResponseEntity<>(iProductService.newPost(post), HttpStatus.OK);

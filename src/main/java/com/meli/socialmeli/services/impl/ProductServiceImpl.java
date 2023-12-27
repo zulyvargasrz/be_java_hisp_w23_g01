@@ -62,6 +62,12 @@ public class ProductServiceImpl implements IProductService {
         }
         return postNoPromoDTOList;
     }
+
+    /*
+        US-0006: Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas
+        dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
+        US-0009: Ordenamiento por fecha ascendente y descendente.
+     */
     @Override
     public PostsFromFollowsDTO getAllPostsFollowsLastTwoWeeks(Integer userId, String order) {
         Stream<PostNoPromoDTO> temp = this.getAllPostFollowsLastTwoWeeks(userId).stream();
@@ -80,7 +86,9 @@ public class ProductServiceImpl implements IProductService {
 
         return new PostsFromFollowsDTO(userId, posts);
     }
-
+    /*
+        US-0005: Dar de alta una nueva publicación.
+     */
     @Override
     public MessageDTO newPost(PostDTO post){
         User user = userRepository.finById(post.getUserId());
