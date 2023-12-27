@@ -6,6 +6,7 @@ import com.meli.socialmeli.dtos.response.PostNoPromoDTO;
 import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
 import com.meli.socialmeli.dtos.response.ProductDTO;
 import com.meli.socialmeli.entities.User;
+import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.IProductService;
@@ -70,6 +71,8 @@ public class ProductServiceImpl implements IProductService {
      */
     @Override
     public PostsFromFollowsDTO getAllPostsFollowsLastTwoWeeks(Integer userId, String order) {
+        if (order != null && !List.of("date_asc", "date_desc").contains(order))
+            throw new BadRequestException("El valor del query parameter 'order' es incorrecto.");
         Stream<PostNoPromoDTO> temp = this.getAllPostFollowsLastTwoWeeks(userId).stream();
 
         Comparator<PostNoPromoDTO> comparator = Comparator.comparing(PostNoPromoDTO::getDate);
