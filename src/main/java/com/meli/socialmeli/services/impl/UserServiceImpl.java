@@ -164,14 +164,14 @@ public class UserServiceImpl implements IUserService {
         User userToUnfollow = this.userRepository.finById(userIdToUnfollow);
 
         if (user == null || userToUnfollow == null) {
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("Usuario no encontrado");
         }
 
         boolean removedFromFollowed = user.getFollowed().remove(userToUnfollow);
         boolean removedFromFollowers = userToUnfollow.getFollowers().remove(user);
 
         if (!removedFromFollowed || !removedFromFollowers) {
-            throw new NotFoundException("Followed user not found");
+            throw new NotFoundException("Usuario seguido no encontrado");
         }
 
         return new UserUnfollowDTO(userId, userIdToUnfollow);
