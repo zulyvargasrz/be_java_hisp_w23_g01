@@ -1,5 +1,6 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.entities.User;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meli.socialmeli.dtos.response.MessageDTO;
 import com.meli.socialmeli.exceptions.custom.DataSourceException;
+import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
@@ -201,4 +203,47 @@ class UserServiceImplTest {
         //Act - Assert
         assertThrows(BadRequestException.class, ()->userService.findFollowersById(100000, "empty"));
     }
+
+    @Test
+    @DisplayName("T-0007: Verificar que la cantidad de seguidores de un determinado usuario sea correcta. Todo ok")
+    void getFollowersCountOk(){
+        //Arrange
+        int userId = 1100;
+        List<User> userList = loadTestUsers();
+        User userMock = userList.get(1);
+
+        userMock.addFollower(userList.get(0));
+        userMock.addFollower(userList.get(2));
+
+        userList.get(0).addFollowed(userMock);
+        userList.get(2).addFollowed(userMock);
+
+        Mockito.when(userRepository.finById(userId)).thenReturn(userList.get(1));
+
+        FollowersCountDTO expected = new FollowersCountDTO();
+        expected.setUser_id(userMock.getUser_id());
+        expected.setUser_name(userMock.getUser_name());
+        expected.setFollowers_count(userMock.getFollowers().size());
+        //Act
+        FollowersCountDTO result = userService.getFollowersCount(userId);
+        //Assert
+        assertEquals(expected.getUser_id(), result.getUser_id());
+        assertEquals(expected.getUser_name(), result.getUser_name());
+        assertEquals(expected.getFollowers_count(), result.getFollowers_count());
+    }
+
+    @Test
+    @DisplayName("T-0007: Verificar que la cantidad de seguidores de un determinado usuario sea correcta. Usuario inválido")
+    void getFollowersCountNotFoundUser(){
+        //Arrange
+        int userId = 9999;
+        when(userRepository.finById(userId)).thenReturn(null);
+        String expectedMessage = "Usuario no encontrado";
+        //Act & Assert
+        Exception e = assertThrows(NotFoundException.class, () -> {
+            userService.getFollowersCount(userId);
+        });
+        assertEquals(expectedMessage, e.getMessage());
+    }
+
 }
