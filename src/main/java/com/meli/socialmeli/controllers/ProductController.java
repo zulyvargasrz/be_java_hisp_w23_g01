@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -41,7 +40,7 @@ public class ProductController {
         US-0005: Dar de alta una nueva publicación.
     */
     @PostMapping("/post")
-    public ResponseEntity<?> newPost(@RequestBody PostDTO post){
+    public ResponseEntity<?> newPost(@Valid @RequestBody PostDTO post){
         return new ResponseEntity<>(iProductService.newPost(post), HttpStatus.OK);
     }
 }

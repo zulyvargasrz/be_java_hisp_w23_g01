@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
-    private int post_id;
+    private Integer post_id;
     private LocalDate date;
     private Integer category;
     private double price;
