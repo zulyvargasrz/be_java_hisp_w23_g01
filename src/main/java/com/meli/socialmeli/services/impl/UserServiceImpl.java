@@ -144,7 +144,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserFollowedDTO findFollowedById(int userId, String order) {
         Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
-        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
+        if (userFound.isEmpty()) throw new NotFoundException("No existe usuario con el id: " + userId);
+
+        if (!List.of("name_asc","name_desc").contains(order))
+            throw  new BadRequestException("Debe indicar un parámetro de orden válido: 'name_asc' o 'name_desc'");
 
         List<UserInfoDTO> followed = userFound.get().getFollowed()
                                                     .stream()
@@ -164,14 +167,14 @@ public class UserServiceImpl implements IUserService {
         User userToUnfollow = this.userRepository.finById(userIdToUnfollow);
 
         if (user == null || userToUnfollow == null) {
-            throw new NotFoundException("User not found");
+            throw new NotFoundException("Usuario no encontrado");
         }
 
         boolean removedFromFollowed = user.getFollowed().remove(userToUnfollow);
         boolean removedFromFollowers = userToUnfollow.getFollowers().remove(user);
 
         if (!removedFromFollowed || !removedFromFollowers) {
-            throw new NotFoundException("Followed user not found");
+            throw new NotFoundException("Usuario seguido no encontrado");
         }
 
         return new UserUnfollowDTO(userId, userIdToUnfollow);

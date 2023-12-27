@@ -1,8 +1,10 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.response.UserFollowedDTO;
 import com.meli.socialmeli.dtos.response.FollowersCountDTO;
 import com.meli.socialmeli.dtos.response.UserFollowersDTO;
 import com.meli.socialmeli.entities.User;
+import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,26 +15,31 @@ import com.meli.socialmeli.exceptions.custom.DataSourceException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.impl.UserServiceImpl;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+
 import util.UserDTOUtilsGenerator;
 import util.UserEntityUtilsGenerator;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
+
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -158,6 +165,70 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("T-0002 Verificar que el usuario a dejar de seguir exista. Permite continuar con normalidad.")
+    void testUnfollowUser_UserToUnfollowDoesExist() {
+        // Arrange
+        int userId = 100;
+        int userIdToUnfollow = 2100;
+
+        User user = new User();
+        user.setFollowed(new ArrayList<>());
+        user.setFollowers(new ArrayList<>());
+
+        User userToUnfollow = new User();
+        userToUnfollow.setFollowed(new ArrayList<>());
+        userToUnfollow.setFollowers(new ArrayList<>());
+
+        user.getFollowed().add(userToUnfollow);
+        userToUnfollow.getFollowers().add(user);
+
+        // Act
+        when(userRepository.finById(userId)).thenReturn(user);
+        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollow);
+
+        // Assert
+        assertDoesNotThrow(() -> userService.unfollowUser(userId, userIdToUnfollow));
+    }
+
+    @Test
+    @DisplayName("T-0002 Verificar que el usuario a dejar de seguir exista. Notifica la no existencia mediante una excepción.")
+    void testUnfollowUser_UserToUnfollowDoesNotExist() {
+        // Arrange
+        int userId = 100;
+        int userIdToUnfollow = 2100;
+
+        User user = new User();
+        user.setFollowed(new ArrayList<>());
+        user.setFollowers(new ArrayList<>());
+
+        // Act
+        when(userRepository.finById(userId)).thenReturn(user);
+        when(userRepository.finById(userIdToUnfollow)).thenReturn(null);
+
+        // Assert
+        assertThrows(NotFoundException.class, () -> userService.unfollowUser(userId, userIdToUnfollow));
+    }
+
+    @Test
+    @DisplayName("T-0002 Verificar que el usuario a dejar de seguir exista. Usuario no existe, notifica mediante excepción.")
+    void testUnfollowUser_UserDoesNotExists() {
+        // Arrange
+        int userId = 100;
+        int userIdToUnfollow = 2100;
+
+        User userToUnfollow = new User();
+        userToUnfollow.setFollowed(new ArrayList<>());
+        userToUnfollow.setFollowers(new ArrayList<>());
+
+        // Act
+        when(userRepository.finById(userId)).thenReturn(null);
+        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollow);
+
+        // Assert
+        assertThrows(NotFoundException.class, () -> userService.unfollowUser(userId, userIdToUnfollow));
+    }
+
+    @Test
     @DisplayName("T-0003:Verificar que el tipo de ordenamiento alfabético exista. Continuar con normalidad - name_asc")
     void getFollowersListByNameAscShouldReturnSortedList() {
         //Arrange
@@ -203,6 +274,57 @@ class UserServiceImplTest {
         //Act - Assert
         assertThrows(BadRequestException.class, ()->userService.findFollowersById(100000, "empty"));
     }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_asc")
+    void getFollowedListByNameAscShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderAsc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_asc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Continuar con normalidad - name_desc")
+    void getFollowedListByNameDescShouldReturnSortedList() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowed();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        UserFollowedDTO userFollowedExpected = UserDTOUtilsGenerator.getUserFollowedDTOWithThreeFollowedOrderDesc();
+
+        //Act
+        UserFollowedDTO resultUserFollowers = userService.findFollowedById(100000, "name_desc");
+
+        //Assert
+        assertEquals(userFollowedExpected.getUser_id(),resultUserFollowers.getUser_id());
+        assertEquals(userFollowedExpected.getUser_name(),resultUserFollowers.getUser_name());
+        assertEquals(userFollowedExpected.getFollowed(),resultUserFollowers.getFollowed());
+    }
+
+    @Test
+    @DisplayName("T-0004:Verificar el correcto ordenamiento por nombre. Notificar con excepción - Orden no válido")
+    void getFollowedListByNameEmptyShouldThrowException() {
+        //Arrange
+        User userFromRepository = UserEntityUtilsGenerator.getUserWithThreeFollowers();
+        when(userRepository.finById(100000)).thenReturn(userFromRepository);
+
+        //Act - Assert
+        assertThrows(BadRequestException.class, ()->userService.findFollowedById(100000, "empty"));
+    }
+
+
+
+
 
     @Test
     @DisplayName("T-0007: Verificar que la cantidad de seguidores de un determinado usuario sea correcta. Todo ok")
