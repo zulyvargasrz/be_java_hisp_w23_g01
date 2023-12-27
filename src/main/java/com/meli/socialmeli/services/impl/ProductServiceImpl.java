@@ -34,7 +34,7 @@ public class ProductServiceImpl implements IProductService {
 
     private List<PostNoPromoDTO> getAllPostFollowsLastTwoWeeks(Integer userId) {
         List<User> follows = userService.findFollowsByIdProductService(userId);
-        if (follows == null || follows.isEmpty()) throw new NotFoundException("The user with id: " + userId + " does not follow anyone");
+        if (follows == null || follows.isEmpty()) throw new NotFoundException("El usuario con id: " + userId + " no sigue a nadie");
 
         List<PostNoPromoDTO> postNoPromoDTOList = new ArrayList<>();
 
@@ -58,8 +58,8 @@ public class ProductServiceImpl implements IProductService {
                 ))
                 .forEach(postNoPromoDTOList::add));
         if(postNoPromoDTOList.isEmpty()){
-            throw new NotFoundException("The sellers of the user with id: " + userId +
-                    " do not have any publications in the last two weeks");
+            throw new NotFoundException("Los vendedores que sigue el usuario con id: " + userId +
+                    " no tienen ninguna publicación en las últimas dos semanas.");
         }
         return postNoPromoDTOList;
     }
