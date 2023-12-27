@@ -23,7 +23,7 @@ public class PostDTO {
     @Min( value= 1, message= "El id debe ser mayor a cero")
     Integer userId;
     @NotNull(message = "La fecha no puede estar vacía.")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     protected LocalDate date;
     protected @Valid ProductDTO product;
     @NotNull(message = "El campo no puede estar vacío.")
