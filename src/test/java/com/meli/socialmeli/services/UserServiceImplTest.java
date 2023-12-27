@@ -49,7 +49,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller ok")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Todo ok")
     public void followSellerOk(){
         //Arrange
         int userIdFollower = 100;
@@ -66,7 +66,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller invalid followed")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario a seguir no encontrado")
     public void followSellerInvalidFollowed(){
         //Arrange
         int userIdFollower = 100;
@@ -82,7 +82,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller invalid follower")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario seguidor no encontrado")
     public void followSellerInvalidFollower(){
         //Arrange
         int userIdFollower = 9999;
@@ -98,7 +98,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller already followed")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Vendedor ya seguido")
     public void followSellerAlreadyFollowed(){
         //Arrange
         List<User> userList = loadTestUsers();
@@ -116,7 +116,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller without posts")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario a seguir sin posts")
     public void followSellerWithoutPosts(){
         //Arrange
         List<User> userList = loadTestUsers();
@@ -132,7 +132,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    @DisplayName("Follow seller same user")
+    @DisplayName("T-0001: Verificar que el usuario a seguir exista. Usuario siguiéndose a sí mismo")
     public void followSellerSameUser(){
         //Arrange
         List<User> userList = loadTestUsers();
@@ -146,7 +146,4 @@ class UserServiceImplTest {
         });
         Assertions.assertEquals(expectedMessage, e.getMessage());
     }
-
-
-
 }
