@@ -40,7 +40,7 @@ public class UserController {
         US-0008: Ordenamiento alfabético ascendente y descendente.
     */
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
+    public ResponseEntity<UserFollowersDTO> getFollowersById(@PathVariable int userId, @RequestParam(defaultValue = "empty") String order){
         return ResponseEntity.ok(userService.findFollowersById(userId, order));
     }
 
@@ -57,7 +57,7 @@ public class UserController {
         US-0008: Ordenamiento alfabético ascendente y descendente.
     */
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> getFollowedById(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
+    public ResponseEntity<UserFollowedDTO> getFollowedById(@PathVariable int userId, @RequestParam(defaultValue = "empty") String order){
         return ResponseEntity.ok(userService.findFollowedById(userId, order));
     }
     /*

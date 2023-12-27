@@ -37,7 +37,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserFollowersDTO findFollowersById(int userId, String order) {
         Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
-        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
+        if (userFound.isEmpty()) throw new NotFoundException("No existe usuario con el id: " + userId);
+
+        if (!List.of("name_asc","name_desc").contains(order))
+            throw  new BadRequestException("Debe indicar un parámetro de orden válido: 'name_asc' o 'name_desc'");
 
         List<UserInfoDTO> followers = userFound.get().getFollowers()
                                                      .stream()
