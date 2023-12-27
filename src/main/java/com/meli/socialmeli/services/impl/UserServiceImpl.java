@@ -30,7 +30,10 @@ public class UserServiceImpl implements IUserService {
     public UserServiceImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
+    /*
+        US-0003: Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
+        US-0008: Ordenamiento alfabético ascendente y descendente.
+     */
     @Override
     public UserFollowersDTO findFollowersById(int userId, String order) {
         Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
@@ -78,6 +81,9 @@ public class UserServiceImpl implements IUserService {
         return userResponseDtoList;
     }
 
+    /*
+        US 0001: Poder realizar la acción de “Follow” (seguir) a un determinado vendedor.
+     */
     @Override
     public MessageDTO followSeller(int userId, int userIdToFollow) {
         User followerUser = userRepository.findAll()
@@ -113,6 +119,9 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    /*
+        US-0002: Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
+    */
     @Override
     public FollowersCountDTO getFollowersCount(int userId) {
         User user = userRepository.finById(userId);
@@ -125,7 +134,10 @@ public class UserServiceImpl implements IUserService {
         followersCountDto.setFollowers_count(user.getFollowers().size());
         return followersCountDto;
     }
-
+    /*
+        US-0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
+        US-0008: Ordenamiento alfabético ascendente y descendente.
+    */
     @Override
     public UserFollowedDTO findFollowedById(int userId, String order) {
         Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
@@ -140,7 +152,9 @@ public class UserServiceImpl implements IUserService {
                                                     .toList();
         return new UserFollowedDTO(userFound.get().getUser_id(), userFound.get().getUser_name(), followed);
     }
-
+    /*
+        US-0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
+     */
     @Override
     public UserUnfollowDTO unfollowUser(int userId, int userIdToUnfollow) {
         User user = this.userRepository.finById(userId);
