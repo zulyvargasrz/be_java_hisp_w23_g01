@@ -37,7 +37,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserFollowersDTO findFollowersById(int userId, String order) {
         Optional<User> userFound = Optional.ofNullable(userRepository.finById(userId));
-        if (userFound.isEmpty()) throw new NotFoundException("There is no user with the id: " + userId);
+        if (userFound.isEmpty()) throw new NotFoundException("No existe usuario con el id: " + userId);
+
+        if (!List.of("name_asc","name_desc").contains(order))
+            throw  new BadRequestException("Debe indicar un parámetro de orden válido: 'name_asc' o 'name_desc'");
 
         List<UserInfoDTO> followers = userFound.get().getFollowers()
                                                      .stream()
@@ -92,7 +95,7 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followerUser == null){
-            throw new BadRequestException("User not found");
+            throw new BadRequestException("Usuario seguidor no encontrado");
         }
 
         User followedUser = userRepository.findAll()
@@ -101,21 +104,21 @@ public class UserServiceImpl implements IUserService {
                 .findFirst()
                 .orElse(null);
         if(followedUser == null){
-            throw new BadRequestException("User not found");
+            throw new BadRequestException("Usuario a seguir no encontrado");
         }
 
         if(followedUser.getFollowers().contains(followerUser)){
-            throw new BadRequestException("User already followed");
+            throw new BadRequestException("El usuario ya sigue al usuario deseado");
         }
 
         if(followedUser.getPosts().isEmpty() || userId == userIdToFollow){
-            throw new BadRequestException("Invalid User to follow");
+            throw new BadRequestException("Usuario inválido para seguir");
         }
 
         followerUser.addFollowed(followedUser);
         followedUser.addFollower(followerUser);
 
-        return new MessageDTO("Followed added");
+        return new MessageDTO("Usuario seguido agregado");
 
     }
 
