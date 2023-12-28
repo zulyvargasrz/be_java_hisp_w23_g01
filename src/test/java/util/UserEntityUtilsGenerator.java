@@ -4,6 +4,7 @@ import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.Product;
 import com.meli.socialmeli.entities.User;
 
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,6 +31,20 @@ public class UserEntityUtilsGenerator {
         userFollowerTwo.setFollowers(List.of(user));
         userFollowerThree.setFollowers(List.of(user));
         return user;
+    }
+
+    public static User user(){
+        User user = new User();
+        user.setFollowed(new ArrayList<>());
+        user.setFollowers(new ArrayList<>());
+        return user;
+    }
+
+    public static User userToUnfollow(){
+        User userToUnfollow = new User();
+        userToUnfollow.setFollowed(new ArrayList<>());
+        userToUnfollow.setFollowers(new ArrayList<>());
+        return userToUnfollow;
     }
 
     public static User getUserFollwingSellers() {
