@@ -32,8 +32,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
-import static util.UserEntityUtilsGenerator.user;
-import static util.UserEntityUtilsGenerator.userToUnfollow;
+import static util.UserEntityUtilsGenerator.*;
 
 import org.springframework.util.ResourceUtils;
 
@@ -172,8 +171,8 @@ class UserServiceImplTest {
         int userId = 100;
         int userIdToUnfollow = 2100;
 
-        User user = user();
-        User userToUnfollow = userToUnfollow();
+        User user = userStaticTest();
+        User userToUnfollow = userToUnfollowStaticTest();
 
         user.getFollowed().add(userToUnfollow);
         userToUnfollow.getFollowers().add(user);
@@ -194,7 +193,7 @@ class UserServiceImplTest {
         int userIdToUnfollow = 2100;
 
         // Act
-        when(userRepository.finById(userId)).thenReturn(user());
+        when(userRepository.finById(userId)).thenReturn(userStaticTest());
         when(userRepository.finById(userIdToUnfollow)).thenReturn(null);
 
         // Assert
@@ -210,7 +209,7 @@ class UserServiceImplTest {
 
         // Act
         when(userRepository.finById(userId)).thenReturn(null);
-        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollow());
+        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollowStaticTest());
 
         // Assert
         assertThrows(NotFoundException.class, () -> userService.unfollowUser(userId, userIdToUnfollow));
