@@ -33,14 +33,14 @@ public class UserEntityUtilsGenerator {
         return user;
     }
 
-    public static User user(){
+    public static User userStaticTest(){
         User user = new User();
         user.setFollowed(new ArrayList<>());
         user.setFollowers(new ArrayList<>());
         return user;
     }
 
-    public static User userToUnfollow(){
+    public static User userToUnfollowStaticTest(){
         User userToUnfollow = new User();
         userToUnfollow.setFollowed(new ArrayList<>());
         userToUnfollow.setFollowers(new ArrayList<>());
