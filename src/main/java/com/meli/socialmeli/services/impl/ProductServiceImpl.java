@@ -67,9 +67,9 @@ public class ProductServiceImpl implements IProductService {
 
         List<PostNoPromoDTO> posts;
 
-        if (order.equals("date_asc")) {
+        if (order != null && order.equals("date_asc")) {
             posts = temp.sorted(comparator).toList();
-        } else if (order.equals("date_desc")) {
+        } else if (order != null && order.equals("date_desc")) {
             posts = temp.sorted(comparator.reversed()).toList();
         } else {
             posts = temp.toList();
