@@ -31,7 +31,7 @@ public class ProductController {
         US-0009: Ordenamiento por fecha ascendente y descendente.
      */
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsFromFollowsDTO> getAllPostsFollowsLastTwoWeeks(@PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order)
+    public ResponseEntity<PostsFromFollowsDTO> getAllPostsFollowsLastTwoWeeks(@PathVariable Integer userId, String order)
     {
         return new ResponseEntity<>(iProductService.getAllPostsFollowsLastTwoWeeks(userId, order), HttpStatus.OK);
     }

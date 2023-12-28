@@ -55,7 +55,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> findFollowsByIdProductService(int id) {
         Optional<User> user = Optional.ofNullable(userRepository.finById(id));
-        if (user.isEmpty()) throw new NotFoundException("There is no user with the id: " + id);
+        if (user.isEmpty()) throw new NotFoundException("No existe usuario con id: " + id);
 
         return userRepository.getUserFollowed(user.get());
     }

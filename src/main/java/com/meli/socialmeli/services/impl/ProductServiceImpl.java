@@ -6,6 +6,7 @@ import com.meli.socialmeli.dtos.response.PostNoPromoDTO;
 import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
 import com.meli.socialmeli.dtos.response.ProductDTO;
 import com.meli.socialmeli.entities.User;
+import com.meli.socialmeli.exceptions.custom.BadRequestException;
 import com.meli.socialmeli.exceptions.custom.NotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import com.meli.socialmeli.services.IProductService;
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements IProductService {
 
     private List<PostNoPromoDTO> getAllPostFollowsLastTwoWeeks(Integer userId) {
         List<User> follows = userService.findFollowsByIdProductService(userId);
-        if (follows == null || follows.isEmpty()) throw new NotFoundException("The user with id: " + userId + " does not follow anyone");
+        if (follows == null || follows.isEmpty()) throw new NotFoundException("El usuario con id: " + userId + " no sigue a nadie");
 
         List<PostNoPromoDTO> postNoPromoDTOList = new ArrayList<>();
 
@@ -57,8 +58,8 @@ public class ProductServiceImpl implements IProductService {
                 ))
                 .forEach(postNoPromoDTOList::add));
         if(postNoPromoDTOList.isEmpty()){
-            throw new NotFoundException("The sellers of the user with id: " + userId +
-                    " do not have any publications in the last two weeks");
+            throw new NotFoundException("Los vendedores que sigue el usuario con id: " + userId +
+                    " no tienen ninguna publicación en las últimas dos semanas.");
         }
         return postNoPromoDTOList;
     }
@@ -70,6 +71,8 @@ public class ProductServiceImpl implements IProductService {
      */
     @Override
     public PostsFromFollowsDTO getAllPostsFollowsLastTwoWeeks(Integer userId, String order) {
+        if (order != null && !List.of("date_asc", "date_desc").contains(order))
+            throw new BadRequestException("El valor del query parameter 'order' es incorrecto.");
         Stream<PostNoPromoDTO> temp = this.getAllPostFollowsLastTwoWeeks(userId).stream();
 
         Comparator<PostNoPromoDTO> comparator = Comparator.comparing(PostNoPromoDTO::getDate);
