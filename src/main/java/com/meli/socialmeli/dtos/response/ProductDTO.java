@@ -2,12 +2,14 @@ package com.meli.socialmeli.dtos.response;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ProductDTO {
     @NotNull(message = "El  id no puede estar vacío.")
     @Min(value= 1, message= "El id debe ser mayor a cero")
