@@ -22,6 +22,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.meli.socialmeli.utilities.Mappers.mapPostUserAndProductPromoNoPromoDTO;
+
 @Service
 public class ProductServiceImpl implements IProductService {
     private final IUserRepository userRepository ;
@@ -41,21 +43,7 @@ public class ProductServiceImpl implements IProductService {
         follows.forEach(f -> f.getPosts().stream()
                 .filter(post -> !post.isHas_promo())
                 .filter(post -> post.getDate().isAfter(LocalDate.now().minusWeeks(2)))
-                .map(post -> new PostNoPromoDTO(
-                        f.getUser_id(),
-                        post.getPost_id(),
-                        post.getDate().toString(),
-                        new ProductDTO(
-                                post.getProduct().getProduct_id(),
-                                post.getProduct().getProduct_name(),
-                                post.getProduct().getType(),
-                                post.getProduct().getBrand(),
-                                post.getProduct().getColor(),
-                                post.getProduct().getNotes()
-                        ),
-                        post.getCategory(),
-                        post.getPrice()
-                ))
+                .map(post -> mapPostUserAndProductPromoNoPromoDTO(post,f))
                 .forEach(postNoPromoDTOList::add));
         if(postNoPromoDTOList.isEmpty()){
             throw new NotFoundException("Los vendedores que sigue el usuario con id: " + userId +

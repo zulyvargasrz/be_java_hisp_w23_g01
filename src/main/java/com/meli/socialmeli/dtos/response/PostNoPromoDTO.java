@@ -3,6 +3,7 @@ package com.meli.socialmeli.dtos.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class PostNoPromoDTO {
     @NotNull(message = "El  id no puede estar vacío.")
     @Min(value= 1, message= "El id debe ser mayor a cero")
