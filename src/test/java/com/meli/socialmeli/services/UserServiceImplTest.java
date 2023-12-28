@@ -32,6 +32,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
+import static util.UserEntityUtilsGenerator.*;
 
 import org.springframework.util.ResourceUtils;
 
@@ -170,13 +171,8 @@ class UserServiceImplTest {
         int userId = 100;
         int userIdToUnfollow = 2100;
 
-        User user = new User();
-        user.setFollowed(new ArrayList<>());
-        user.setFollowers(new ArrayList<>());
-
-        User userToUnfollow = new User();
-        userToUnfollow.setFollowed(new ArrayList<>());
-        userToUnfollow.setFollowers(new ArrayList<>());
+        User user = userStaticTest();
+        User userToUnfollow = userToUnfollowStaticTest();
 
         user.getFollowed().add(userToUnfollow);
         userToUnfollow.getFollowers().add(user);
@@ -196,12 +192,8 @@ class UserServiceImplTest {
         int userId = 100;
         int userIdToUnfollow = 2100;
 
-        User user = new User();
-        user.setFollowed(new ArrayList<>());
-        user.setFollowers(new ArrayList<>());
-
         // Act
-        when(userRepository.finById(userId)).thenReturn(user);
+        when(userRepository.finById(userId)).thenReturn(userStaticTest());
         when(userRepository.finById(userIdToUnfollow)).thenReturn(null);
 
         // Assert
@@ -215,13 +207,9 @@ class UserServiceImplTest {
         int userId = 100;
         int userIdToUnfollow = 2100;
 
-        User userToUnfollow = new User();
-        userToUnfollow.setFollowed(new ArrayList<>());
-        userToUnfollow.setFollowers(new ArrayList<>());
-
         // Act
         when(userRepository.finById(userId)).thenReturn(null);
-        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollow);
+        when(userRepository.finById(userIdToUnfollow)).thenReturn(userToUnfollowStaticTest());
 
         // Assert
         assertThrows(NotFoundException.class, () -> userService.unfollowUser(userId, userIdToUnfollow));
@@ -320,10 +308,6 @@ class UserServiceImplTest {
         //Act - Assert
         assertThrows(BadRequestException.class, ()->userService.findFollowedById(100000, "empty"));
     }
-
-
-
-
 
     @Test
     @DisplayName("T-0007: Verificar que la cantidad de seguidores de un determinado usuario sea correcta. Todo ok")
