@@ -168,7 +168,7 @@ public class UserEntityUtilsGenerator {
         return new User(1,"User", List.of(), sellers, List.of());
     }
 
-    public static PostsFromFollowsDTO getUserFollwingSellersOrderingTestAsc(){
+    public static PostsFromFollowsDTO getUserFollwingSellersOrderingAscTest(){
         User user = getUserFollwingSellersOrderingTest();
         List<User> sellers =  user.getFollowed();
 
@@ -191,7 +191,7 @@ public class UserEntityUtilsGenerator {
         return new PostsFromFollowsDTO(user.getUser_id(), postsAscSorted);
     }
 
-    public static PostsFromFollowsDTO getUserFollwingSellersOrderingTestDesc(){
+    public static PostsFromFollowsDTO getUserFollwingSellersOrderingDescTest(){
         User user = getUserFollwingSellersOrderingTest();
         List<User> sellers =  user.getFollowed();
 

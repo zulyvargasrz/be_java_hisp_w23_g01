@@ -1,5 +1,7 @@
 package com.meli.socialmeli.services;
 
+import com.meli.socialmeli.dtos.request.PostDTO;
+import com.meli.socialmeli.dtos.response.PostNoPromoDTO;
 import com.meli.socialmeli.dtos.response.PostsFromFollowsDTO;
 import com.meli.socialmeli.entities.Post;
 import com.meli.socialmeli.entities.User;
@@ -18,6 +20,7 @@ import util.UserEntityUtilsGenerator;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.meli.socialmeli.utilities.Mappers.mapPostUserAndProductPromoNoPromoDTO;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -91,7 +94,7 @@ class ProductServiceImplTest {
         Integer id = user.getUser_id();
         // Act
         when(userService.findFollowsByIdProductService(Mockito.anyInt())).thenReturn(sellers);
-        PostsFromFollowsDTO expected = getUserFollwingSellersOrderingTestAsc();
+        PostsFromFollowsDTO expected = getUserFollwingSellersOrderingAscTest();
         PostsFromFollowsDTO actual = productService.getAllPostsFollowsLastTwoWeeks(id,order);
         // Assert
         assertEquals(expected, actual);
@@ -108,9 +111,35 @@ class ProductServiceImplTest {
         Integer id = user.getUser_id();
         // Act
         when(userService.findFollowsByIdProductService(Mockito.anyInt())).thenReturn(sellers);
-        PostsFromFollowsDTO expected = getUserFollwingSellersOrderingTestDesc();
+        PostsFromFollowsDTO expected = getUserFollwingSellersOrderingDescTest();
         PostsFromFollowsDTO actual = productService.getAllPostsFollowsLastTwoWeeks(id,order);
         // Assert
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("T-0008: Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un " +
+            "determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006)")
+    void getAllPostsFollowsLastTwoWeeksAssertLastTwoWeeksTest() {
+        // Arrange
+        /*
+            Se utiliza este método porque en realidad nos sirve para este caso de uso también,
+            no veo necesidad de cambiar el nombre.
+         */
+        User user = getUserFollwingSellersOrderingTest();
+        List<User> sellers = user.getFollowed();
+        Integer id = user.getUser_id();
+        // Act
+        when(userService.findFollowsByIdProductService(Mockito.anyInt())).thenReturn(sellers);
+        // No importa que se retorne de manera descendente, lo importante es revisar que existan
+        List<PostNoPromoDTO> expected = getUserFollwingSellersOrderingDescTest().getPosts();
+        PostNoPromoDTO notExpected =  mapPostUserAndProductPromoNoPromoDTO(
+                sellers.get(1).getPosts().get(1),
+                sellers.get(1)
+        );
+        List<PostNoPromoDTO> actual = productService.getAllPostsFollowsLastTwoWeeks(id,null).getPosts();
+        // Assert
+        Assertions.assertTrue(actual.containsAll(expected));
+        Assertions.assertFalse(actual.contains(notExpected));
     }
 }
